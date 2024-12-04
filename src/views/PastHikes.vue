@@ -1,7 +1,10 @@
 <template>
   <div>
+    <br>
+    <br>
+    <br>
     <h1>Tehtud matkad</h1>
-
+    <br>
     <!-- Dropdown to select trail -->
     <Dropdown
         :hikingTrails="hikingTrails"
@@ -12,13 +15,28 @@
     <br>
 
     <!-- Add Hike form -->
-    <HikeForm :newHike="newHike" @add-hike="addHike" />
+    <HikeForm :newHike="newHike" @add-hike="addHike"/>
 
     <!-- Button to fetch hikes -->
     <button @click="fetchMyHike">Tehtud matkad</button>
 
     <!-- Display list of hikes -->
-    <HikeList :hikes="hikes" />
+    <HikeList :hikes="hikes"/>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   </div>
 </template>
 
@@ -41,7 +59,7 @@ export default {
       hikes: [],
       dropdownVisible: false,  // Controls dropdown visibility
       newHike: {
-        template: { id: null, name: "" }, // This will hold the HikeTemplate id, mapped by `template_id`
+        template: {id: null, name: ""}, // This will hold the HikeTemplate id, mapped by `template_id`
         notes: "",            // Notes for the hike
         startDate: "yyyy-MM-dd", // Example: "2024-12-05"
         endDate: "yyyy-MM-dd",   // Example: "2024-12-07"
@@ -65,7 +83,7 @@ export default {
     //Selects one of the pre-inserted trails
     selectTrail(trail) {
       console.log(trail)
-      this.newHike.template = { id: trail.id }; // `trail.id` is the `template_id` corresponding to `HikeTemplate
+      this.newHike.template = {id: trail.id}; // `trail.id` is the `template_id` corresponding to `HikeTemplate
       this.newHike.trailName = trail.name; // stores the name for UI display, but it's not needed in the backend
       this.dropdownVisible = false; // Close the dropdown after selection
       console.log(this.newHike.trailName)
@@ -86,7 +104,7 @@ export default {
     },
     addHike(newHike) {
       axios.post(`${this.api}/plan-hike`, newHike)
-          .then (()=> {
+          .then(() => {
             this.resetForm();
           })
           .catch(error => {
@@ -95,7 +113,7 @@ export default {
     },
     resetForm() {
       this.newHike = {
-        template: { id: null, name: "" },
+        template: {id: null, name: ""},
         notes: "",
         duration: "",
         startDate: "",
@@ -110,3 +128,8 @@ export default {
 };
 
 </script>
+
+<style>
+
+
+</style>

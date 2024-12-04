@@ -1,17 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PlannedHikes from '@/views/PastHikes.vue';
-import CompletedHikes from '@/views/PlannedHikes.vue';
+import PastHikes from '@/views/PastHikes.vue';
+import PlannedHikes from '@/views/PlannedHikes.vue';
 
 const routes = [
     {
-        path: '/',
-        name: 'PlannedHikes',
+        path: '/finished',
+        name: 'Tehtud matkad',
+        component: PastHikes,
+    },
+    {
+        path: '/planned',
+        name: 'Planeeritud matkad',
         component: PlannedHikes,
     },
     {
-        path: '/completed',
-        name: 'CompletedHikes',
-        component: CompletedHikes,
+        path: '/favorites',
+        name: 'Lemmikud',
+        component: PlannedHikes,
+    },
+    {
+        path: '/goals',
+        name: 'Saavutused ja eesmärgid',
+        component: PlannedHikes,
     },
 ];
 

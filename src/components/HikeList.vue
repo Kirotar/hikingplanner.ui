@@ -29,6 +29,7 @@ export default {
     // Toggle visibility of details for a specific hike
     toggleDetails(hikeId) {
       this.visibleHikeId = this.visibleHikeId === hikeId ? null : hikeId;
+      //Need to not show "Meetup Point"
     },
     // Check if the details of a hike should be visible
     isDetailsVisible(hikeId) {

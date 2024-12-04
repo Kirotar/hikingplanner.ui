@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PlannedHikes from '@/views/PlannedHikes.vue';
-import CompletedHikes from '@/views/CompletedHikes.vue';
+import PlannedHikes from '@/views/PastHikes.vue';
+import CompletedHikes from '@/views/PlannedHikes.vue';
 
 const routes = [
     {

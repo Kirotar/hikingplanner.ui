@@ -36,7 +36,5 @@ Adds space, makes it larger. 8 vertical padding, 16 horizontal padding.
 Makes each link appear on a new line in the dropdown, without it, might not stretch across the dropdown width
 Removes underline*/
 }
-
-
 </style>
 

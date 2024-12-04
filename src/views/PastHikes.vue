@@ -108,4 +108,5 @@ export default {
     this.fetchTrails();
   }
 };
+
 </script>

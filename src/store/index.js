@@ -36,4 +36,5 @@ export default createStore({
             return state.hikingTrails;
         }
     }
+
 });

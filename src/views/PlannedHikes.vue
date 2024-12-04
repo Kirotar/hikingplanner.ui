@@ -8,6 +8,7 @@
     <h1>Completed Hikes</h1>
     <!-- other elements -->
   </div>
+
 </template>
 
 <style scoped>

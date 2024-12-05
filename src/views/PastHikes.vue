@@ -15,13 +15,13 @@
     <br>
 
     <!-- Add Hike form -->
-    <HikeForm :newHike="newHike" @add-hike="addHike"/>
+    <PastHikeForm :newHike="newHike" @add-hike="addHike"/>
 
     <!-- Button to fetch hikes -->
     <button @click="fetchMyHike">Tehtud matkad</button>
 
     <!-- Display list of hikes -->
-    <HikeList :hikes="hikes"/>
+    <PastHikeList :hikes="hikes"/>
     <br>
     <br>
     <br>
@@ -42,14 +42,14 @@
 
 <script>
 import axios from "axios";
-import HikeForm from "@/components/HikeForm.vue";
-import HikeList from "@/components/HikeList.vue";
 import Dropdown from "@/components/DropdownMenu.vue";
+import PastHikeList from "@/components/PastHikeList.vue";
+import PastHikeForm from "@/components/PastHikeForm.vue";
 
 export default {
   components: {
-    HikeForm,
-    HikeList,
+    PastHikeList,
+    PastHikeForm,
     Dropdown
   },
   data() {
@@ -94,7 +94,7 @@ export default {
     },
     //Gets all user inserted hikes
     fetchMyHike() {
-      axios.get(`${this.api}/get-hikes`)
+      axios.get(`${this.api}/get-past-hikes`)
           .then(res => {
             this.hikes = res.data;
           })

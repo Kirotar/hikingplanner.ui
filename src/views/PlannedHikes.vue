@@ -149,7 +149,7 @@ export default {
     },
     fetchMyHike() {
       axios
-          .get(`${this.api}/get-hikes`)
+          .get(`${this.api}/get-future-hikes`)
           .then((res) => {
             this.hikes = res.data.map((hike) => ({
               ...hike,

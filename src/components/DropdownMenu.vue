@@ -74,4 +74,5 @@ export default {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 </style>

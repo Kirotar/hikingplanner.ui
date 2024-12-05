@@ -1,113 +1,34 @@
 <template>
   <div class="planned-container">
     <h1>Planeeritud matkad</h1>
+<PlannedHikesList
+  :checklist="checklist"
+  :hikes="hikes"
+  :showHikeTable = "showHikeTable"
+  @toggleHikeTable = "toggleHikeTable"
+  />
 
-    <!-- Minu planeeritud matkad -->
-    <div class="mt-4">
-      <button @click="toggleHikeTable" class="btn green-btn mb-2">
-        Minu planeeritud matkad
-      </button>
+    <PlannedHikeForm
+      :newHike="newHike"
+      :hikingTrails="hikingTrails"
+      :selectedTrail="selectedTrail"
+      :showChecklistDropdown="showChecklistDropdown"
+      @updateSelectedTrail="updateSelectedTrail"
+      @addHike="addHike"
+    />
 
-      <div v-if="showHikeTable">
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>Matkarada</th>
-            <th>Alguskuupäev</th>
-            <th>Kohtumispaik</th>
-            <th>CheckList</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="hike in hikes" :key="hike.id">
-            <td>{{ hike.template.name }}</td>
-            <td>{{ hike.startDate }}</td>
-            <td>{{ hike.meetupPoint }}</td>
-            <td>
-              <ul>
-                <li v-for="item in hike.checklist" :key="item.id">
-                  {{ item.checklistItem.name }}
-                </li>
-              </ul>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Planeeri uus matk -->
-    <div class="mt-4">
-      <h3>Planeeri uus matk</h3>
-      <div class="form-group mb-2">
-        <label for="trailDropdown">Matkaraja valik:</label>
-        <select
-            id="trailDropdown"
-            class="form-control"
-            v-model="selectedTrail"
-            @change="updateSelectedTrail"
-        >
-          <option disabled value="">Vali matkarada</option>
-          <option v-for="trail in hikingTrails" :key="trail.id" :value="trail">
-            {{ trail.name }} ({{ trail.location }})
-          </option>
-        </select>
-      </div>
-
-      <div v-if="selectedTrail" class="mt-4">
-        <form @submit.prevent="addHike" class="planned-form">
-          <input
-              type="text"
-              v-model="newHike.trailName"
-              placeholder="Matkarada"
-              class="form-control"
-              readonly
-          />
-          <input
-              type="text"
-              v-model="newHike.meetupPoint"
-              placeholder="Kohtumispaik"
-              class="form-control"
-              required
-          />
-          <input type="date" v-model="newHike.startDate" class="form-control" required />
-
-          <!-- Checklist Dropdown -->
-          <div class="dropdown">
-            <button
-                type="button"
-                class="btn green-btn dropdown-toggle"
-                @click="toggleDropdown"
-            >
-              Vali Checklist
-            </button>
-            <div v-show="showChecklistDropdown" class="dropdown-menu">
-              <div v-for="item in checklistItems" :key="item.id" class="form-check">
-                <input
-                    type="checkbox"
-                    :id="`checklist-item-${item.id}`"
-                    :value="item.id"
-                    v-model="selectedChecklistItems"
-                    class="form-check-input"
-                />
-                <label :for="`checklist-item-${item.id}`" class="form-check-label">
-                  {{ item.name }}
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <button type="submit" class="btn green-btn mt-3">Lisa matk</button>
-        </form>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import PlannedHikeForm from "@/components/PlannedHikeForm.vue";
+import PlannedHikesList from "@/components/PlannedHikesList.vue";
 
 export default {
+  components: {PlannedHikeForm,
+  PlannedHikesList,
+  },
   data() {
     return {
       api: "http://localhost:8089/api/matk",
@@ -258,19 +179,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.green-btn {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
-.green-btn:hover {
-  background-color: #45a049;
-}
 
 .form-control {
   width: 80%;

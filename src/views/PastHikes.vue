@@ -22,21 +22,6 @@
 
     <!-- Display list of hikes -->
     <PastHikeList :hikes="hikes"/>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
   </div>
 </template>
 

@@ -35,6 +35,7 @@ export default {
     isDetailsVisible(hikeId) {
       return this.visibleHikeId === hikeId;
     }
+
   }
 };
 

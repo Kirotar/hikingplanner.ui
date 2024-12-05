@@ -1,6 +1,6 @@
 <template>
+  <div class="background-image"></div>
   <div id="app">
-    <div class="background-image"></div>
     <header>
       <h1>Minu matk</h1>
       <nav>
@@ -20,76 +20,107 @@
 
 <script>
 export default {
-  name: "App",
+  name: "App"
 };
 </script>
 
 <style>
-/* Global styles */
-#app {
-  position: relative;  /* To stack content over the background */
-  z-index: 1;
+/* Globaalstiilid */
+html, body {
   margin: 0;
-  text-align: left;
-  padding: 20px;
-
-}
-h1,h2,h3, h4, h5{
-  font-family: "Lora", serif;
-  font-optical-sizing: auto;
-  color: #FAEBD7;
-  margin-left:20px;
-}
-
-body {
+  padding: 0;
+  min-height: 100%;
+  width: 100%;
   font-family: "Playfair Display", sans-serif;
   font-optical-sizing: auto;
-  margin: 0; /* Remove default margin */
-  height: 100vh;  /* Ensure full screen height */
-  display: flex;
-  flex-direction: column;
 }
 
-/* Background image div */
+/* Taustapilt */
 .background-image {
-  position: absolute;
+  position: fixed; /* Püsib alati paigal */
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('@/assets/path-1356948_1280.jpg'); /* Correct path */
-  background-size: cover;
-  background-position: center;
-  opacity: 0.7;  /* Apply opacity here */
-  z-index: -1;  /* Ensure it's behind the content */
-}
-header {
-  background: rgb(77,133,129);
-  background: linear-gradient(90deg, rgba(77,133,129,1) 0%, rgba(6,76,19,1) 19%, rgba(74,158,27,1) 42%, rgba(0,212,255,0) 93%);
-  padding: 10px;
+  width: 100vw; /* Katab akna laiuse */
+  height: 100vh; /* Katab akna kõrguse */
+  background-image: url('@/assets/path-1356948_1280.jpg'); /* Õige failitee */
+  background-size: cover; /* Katab kogu ala proportsionaalselt */
+  background-position: center; /* Keskendab tausta */
+  background-attachment: fixed; /* Taust jääb paigale */
+  opacity: 0.7; /* Läbipaistvus */
+  z-index: -1; /* Tagab, et see jääb sisu taha */
 }
 
+/* Rakenduse peasisu */
+#app {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left; /* Joondab teksti vasakule */
+  padding: 20px;
+}
+
+/* Päise stiilid */
+header {
+  width: 100%;
+  padding: 15px 20px;
+  background: linear-gradient(
+      90deg,
+      rgba(77, 133, 129, 1) 0%,
+      rgba(6, 76, 19, 1) 19%,
+      rgba(74, 158, 27, 1) 42%,
+      rgba(0, 212, 255, 0) 93%
+  );
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column; /* Asetab pealkirja ja menüü üksteise alla */
+  align-items: flex-start; /* Joondab vasakule */
+  gap: 10px; /* Vahe pealkirja ja menüü vahel */
+}
+
+/* Pealkiri */
+header h1 {
+  font-family: "Lora", serif;
+  font-optical-sizing: auto;
+  color: #faebd7;
+  margin: 0;
+  padding: 0;
+  text-align: left; /* Joondab pealkirja vasakule */
+  font-size: 2.5rem; /* Suurem font suurus */
+  font-weight: 700; /* Lisatud paksus, et rõhutada */
+}
+
+/* Navigatsioon */
 nav ul {
   list-style-type: none;
   padding: 0;
-  margin-left:11px;
-
+  margin: 0;
+  display: flex;
+  justify-content: flex-start; /* Menüü joondus vasakule */
+  gap: 15px; /* Vahe elementide vahel */
 }
 
 nav li {
-  display: inline;
-  margin: 10px;
+  margin: 0;
 }
 
 nav a {
   text-decoration: none;
-  color: #FAEBD7;
+  color: #faebd7;
+  font-size: 1rem; /* Natuke suurem font suurus */
+  font-weight: 500; /* Veidi paksem, et muuta nähtavamaks */
+  padding: 5px 10px;
 }
 
 nav a:hover {
   text-decoration: underline;
 }
 
-
-
+/* Tekstistiilid */
+h1, h2, h3, h4, h5 {
+  font-family: "Lora", serif;
+  font-optical-sizing: auto;
+  color: #faebd7;
+}
 </style>

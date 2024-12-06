@@ -1,12 +1,13 @@
 <template>
   <div class="planned-container">
     <h1>Planeeritud matkad</h1>
-<PlannedHikesList
-  :checklist="checklist"
-  :hikes="hikes"
-  :showHikeTable = "showHikeTable"
-  @toggleHikeTable = "toggleHikeTable"
-  />
+
+    <button @click="fetchHikesAndToggle" class="btn green-btn">Planeeritud matkad</button>
+
+    <PastHikeList :hikes="hikes"
+    :selectedChecklistItems="selectedChecklistItems"
+                  :areHikeDetailsVisible="areHikeDetailsVisible"/>
+
 
     <PlannedHikeForm
       :newHike="newHike"
@@ -23,11 +24,11 @@
 <script>
 import axios from "axios";
 import PlannedHikeForm from "@/components/PlannedHikeForm.vue";
-import PlannedHikesList from "@/components/PlannedHikesList.vue";
+import PastHikeList from "@/components/HikeList.vue";
 
 export default {
-  components: {PlannedHikeForm,
-  PlannedHikesList,
+  components: {
+    PastHikeList, PlannedHikeForm,
   },
   data() {
     return {
@@ -36,6 +37,7 @@ export default {
       hikes: [],
       checklistItems: [],
       selectedChecklistItems: [], // Valitud checklisti üksused
+      areHikeDetailsVisible: false, // Track visibility of all hike buttons
       showHikeTable: false,
       selectedTrail: null,
       showChecklistDropdown: false, // Dropdowni nähtavuse haldamiseks
@@ -48,6 +50,17 @@ export default {
     };
   },
   methods: {
+    fetchHikesAndToggle() {
+      this.fetchMyHike();
+      this.toggleHikeButtons();
+    },
+    toggleHikeButtons() {
+      this.areHikeDetailsVisible = !this.areHikeDetailsVisible;
+      // Reset visible hike ID if hiding all hikes
+      if (!this.areHikeDetailsVisible) {
+        this.visibleHikeId = null;
+      }
+    },
     fetchTrails() {
       axios
           .get(`${this.api}/get-trails`)
@@ -215,10 +228,17 @@ export default {
   margin-bottom: 10px;
 }
 
-.dropdown-toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.green-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
+.green-btn:hover {
+  background-color: #45a049;
+}
+
 </style>

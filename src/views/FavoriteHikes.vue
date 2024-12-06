@@ -3,6 +3,7 @@
 </script>
 
 <template>
+  <h1>Lemmikud</h1>
 
 </template>
 

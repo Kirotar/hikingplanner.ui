@@ -18,17 +18,18 @@
     <PastHikeForm :newHike="newHike" @add-hike="addHike"/>
 
     <!-- Button to fetch hikes -->
-    <button @click="fetchMyHike">Tehtud matkad</button>
+    <button @click="fetchHikesAndToggle" class="btn green-btn">Tehtud matkad</button>
 
     <!-- Display list of hikes -->
-    <PastHikeList :hikes="hikes"/>
+    <PastHikeList :hikes="hikes"
+                  :areHikeDetailsVisible="areHikeDetailsVisible"/>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Dropdown from "@/components/DropdownMenu.vue";
-import PastHikeList from "@/components/PastHikeList.vue";
+import PastHikeList from "@/components/HikeList.vue";
 import PastHikeForm from "@/components/PastHikeForm.vue";
 
 export default {
@@ -42,6 +43,7 @@ export default {
       api: "http://localhost:8089/api/matk",
       hikingTrails: [],
       hikes: [],
+      areHikeDetailsVisible: false, // Track visibility of all hike buttons
       dropdownVisible: false,  // Controls dropdown visibility
       newHike: {
         template: {id: null, name: ""}, // This will hold the HikeTemplate id, mapped by `template_id`
@@ -55,6 +57,17 @@ export default {
     };
   },
   methods: {
+  fetchHikesAndToggle() {
+  this.fetchMyHike();
+  this.toggleHikeButtons();
+},
+    toggleHikeButtons() {
+      this.areHikeDetailsVisible = !this.areHikeDetailsVisible;
+      // Reset visible hike ID if hiding all hikes
+      if (!this.areHikeDetailsVisible) {
+        this.visibleHikeId = null;
+      }
+    },
     //Gets all the pre-inserted trails
     fetchTrails() {
       axios.get(`${this.api}/get-trails`)
@@ -115,6 +128,17 @@ export default {
 </script>
 
 <style>
-
+.green-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.green-btn:hover {
+  background-color: #45a049;
+}
 
 </style>

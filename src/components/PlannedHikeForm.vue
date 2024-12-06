@@ -65,7 +65,7 @@ export default{
   },
   methods:{
     updateSelectedTrail(){
-      this.$emit('updateSelectedTrail', this.$props.newHike)
+      this.$emit('updateSelectedTrail', this.$props.selectedTrail)
     },
     toggleDropdown() {
       this.showChecklistDropdown = !this.showChecklistDropdown;

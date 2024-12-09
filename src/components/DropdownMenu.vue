@@ -1,8 +1,8 @@
 <template>
   <div class="dropdown text-center mb-4" >
-    <button class="dropbtn btn btn-success btn-lg" @click="toggleDropdown">Vali matkarada</button>
-    <div class="dropdown-content" v-if="dropdownVisible">
-      <a v-for="trail in hikingTrails" :key="trail.id" @click="selectTrail(trail)">
+    <button class="dropbtn btn btn-success btn-lg" @click="store.toggleVisibility()">Vali matkarada</button>
+    <div class="dropdown-content" v-if="store.isVisible">
+      <a v-for="trail in store.hikingTrails" :key="trail.id" @click="store.selectTrail(trail)">
         {{ trail.name }}
       </a>
     </div>
@@ -10,17 +10,15 @@
 </template>
 
 <script>
-export default {
-  props: ['hikingTrails', 'dropdownVisible'],
-  methods: {
-    toggleDropdown() {
-      this.$emit('toggle-dropdown');
+import {useHikeStore} from "@/store/hikeStore";
+
+  export default {
+    setup() {
+      const store = useHikeStore();
+      store.fetchTrails();
+      return { store };
     },
-    selectTrail(trail) {
-      this.$emit('select-trail', trail);
-    }
-  }
-};
+  };
 </script>
 
 <style scoped>

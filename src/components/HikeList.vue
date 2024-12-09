@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div v-if="areHikeDetailsVisible">
-      <div v-for="hike in hikes" :key="hike.id" class="hike-info">
-        <button @click="toggleDetails(hike.id)" class="btn green-btn">
+    <div v-if="store.isVisible">
+      <div v-for="hike in store.hikes" :key="hike.id" class="hike-info">
+        <button @click="store.toggleVisibility(hike.id)" class="btn green-btn">
           {{ hike.template.name }} - {{ hike.startDate }}
         </button>
-        <div v-if="isDetailsVisible(hike.id)">
+        <div v-if="store.isDetailsVisible(hike.id)">
           <table class="table table-bordered">
             <thead>
             <tr>
@@ -49,43 +49,20 @@
             </tbody>
           </table>
         </div>
-        <hr> <!-- Separator for readability -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { useHikeStore } from "@/store/hikeStore";
+
 export default {
-  props:  {
-    hikes: Array,
-    areHikeDetailsVisible: Boolean, // Reacts dynamically to parent state
+  setup() {
+    const store = useHikeStore();
+    return { store };
   },
-  data() {
-    return {
-      visibleHikeId: null  // Initialize to null to start with no visible hike
-    };
-  },
-  methods: {
-
-    // Toggle visibility of details for a specific hike
-    toggleDetails(hikeId) {
-      this.visibleHikeId = this.visibleHikeId === hikeId ? null : hikeId;
-    },
-    // Check if the details of a hike should be visible
-    isDetailsVisible(hikeId) {
-      return this.visibleHikeId === hikeId;
-    }
-  },
-  watch: {
-    areHikeDetailsVisible(newVal) {
-      if (!newVal) {
-        this.visibleHikeId = null; // Reset visible hike when global visibility is toggled off
-      }
-    },
-  }
 };
-
 </script>
 
 <style scoped>

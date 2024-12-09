@@ -9,7 +9,7 @@
     </button>
     <div v-show="showChecklistDropdown" class="dropdown-menu">
       <div
-          v-for="item in items"
+          v-for="item in store.checklistItems"
           :key="item.id"
           class="form-check"
       >
@@ -17,7 +17,7 @@
             type="checkbox"
             :id="`checklist-item-${item.id}`"
             :value="item.id"
-            v-model="this.$props.selectedChecklistItems"
+            v-model="store.selectedChecklistItems"
             class="form-check-input"
         />
         <label :for="`checklist-item-${item.id}`" class="form-check-label">
@@ -29,19 +29,31 @@
 </template>
 
 <script>
-export default {
-  props: ['showChecklistDropdown', 'selectedChecklistItems', 'checklistItems'],
-  data() {
-    return {}
-  },
-  methods: {
-    toggleDropdown(){
-      this.$emit('toggleDropdown')
+import { ref } from "vue"; // Import ref from Vue
+import { useHikeStore } from "@/store/hikeStore";
 
-    }
+export default {
+  setup() {
+    const store = useHikeStore();
+    store.fetchChecklist();
+
+    // Local state for dropdown visibility
+    const showChecklistDropdown = ref(false);
+
+    // Toggle the dropdown visibility
+    const toggleDropdown = () => {
+      showChecklistDropdown.value = !showChecklistDropdown.value;
+    };
+
+    return {
+      store,
+      showChecklistDropdown,
+      toggleDropdown,
+    };
   }
 };
 </script>
+
 
 <style scoped>
 .green-btn {

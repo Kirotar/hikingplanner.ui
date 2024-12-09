@@ -1,78 +1,64 @@
 <template>
   <div>
     <h3>Planeeri uus matk</h3>
-<!--
-    <form @submit.prevent="addHike" class="planned-form">
--->
+    <form @submit.prevent="store.addHike()" class="planned-form">
       <div class="form-group mb-2">
         <label for="trailDropdown">Matkaraja valik:</label>
         <select
             id="trailDropdown"
             class="form-control"
-            v-model="this.$props.selectedTrail"
-            @change="updateSelectedTrail"
+            v-model="selectedTrail"
+            @change="store.selectTrail(selectedTrail)"
         >
           <option disabled value="">Vali matkarada</option>
-          <option v-for="trail in hikingTrails" :key="trail.id" :value="trail">
+          <option v-for="trail in store.hikingTrails" :key="trail.id" :value="trail">
             {{ trail.name }}
           </option>
         </select>
       </div>
       <input
           type="text"
-          v-model="this.$props.newHike.trailName"
+          v-model="store.newHike.trailName"
           placeholder="Matkarada"
           class="form-control"
           readonly
       />
       <input
           type="text"
-          v-model="this.$props.newHike.meetupPoint"
+          v-model="store.newHike.meetupPoint"
           placeholder="Kohtumispaik"
           class="form-control"
           required
       />
-      <input type="date" v-model="this.$props.newHike.startDate" class="form-control" required />
+      <input type="date" v-model="store.newHike.startDate" class="form-control" required />
 
-      <PlannedChecklist
-          :showChecklistDropdown="showChecklistDropdown"
-          :items="checklistItems"
-          v-model="selectedChecklistItems"
-          @toggleDropdown = "toggleDropdown"
-      />
+      <PlannedChecklist/>
 
       <button type="submit" class="btn green-btn mt-3">Lisa matk</button>
+    </form>
   </div>
 </template>
 
 <script>
+import {useHikeStore} from "@/store/hikeStore";
 import PlannedChecklist from "@/components/PlannedChecklist.vue";
 
-export default{
+export default {
   components: {PlannedChecklist},
-  props: [
-    'newHike' , 'hikingTrails', 'selectedTrail'],
+  setup() {
+    const store = useHikeStore();
+    store.fetchTrails();
 
-  showHikeTable: false,
-  data() {
-    return {
-      api: "http://localhost:8089/api/matk",
-      showHikeTable: false,
-      showChecklistDropdown: false, // Dropdowni nähtavuse haldamiseks
-      checklistItems: [],
-      selectedChecklistItems: [], // Valitud checklisti üksused
+    let selectedTrail = null;
+    const addHike = async () => {
+      await store.addHike();
     };
+    return {store, selectedTrail, addHike};
   },
-  methods:{
-    updateSelectedTrail(){
-      this.$emit('updateSelectedTrail', this.$props.selectedTrail)
-    },
-    toggleDropdown() {
-      this.showChecklistDropdown = !this.showChecklistDropdown;
-    },
-  }
 }
 </script>
+
+
 <style scoped>
 .green-btn {
   background-color: #4caf50;

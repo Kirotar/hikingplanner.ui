@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown text-center mb-4" >
-    <button class="dropbtn btn btn-success btn-lg" @click="store.toggleVisibility()">Vali matkarada</button>
-    <div class="dropdown-content" v-if="store.isVisible">
+    <button class="dropbtn btn btn-success btn-lg" @click="store.toggleDropdownVisibility()">Vali matkarada</button>
+    <div class="dropdown-content" v-if="store.isDropdownVisible">
       <a v-for="trail in store.hikingTrails" :key="trail.id" @click="store.selectTrail(trail)">
         {{ trail.name }}
       </a>

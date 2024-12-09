@@ -1,178 +1,38 @@
 <template>
   <div class="planned-container">
     <h1>Planeeritud matkad</h1>
-
-    <button @click="fetchHikesAndToggle" class="btn green-btn">Planeeritud matkad</button>
-
-    <PastHikeList :hikes="hikes"
-    :selectedChecklistItems="selectedChecklistItems"
-                  :areHikeDetailsVisible="areHikeDetailsVisible"/>
-
-
-    <PlannedHikeForm
-      :newHike="newHike"
-      :hikingTrails="hikingTrails"
-      :selectedTrail="selectedTrail"
-      :showChecklistDropdown="showChecklistDropdown"
-      @updateSelectedTrail="updateSelectedTrail"
-      @addHike="addHike"
-    />
+    <button @click="store.fetchFutureHikesAndToggle" class="btn green-btn">Planeeritud matkad</button>
+    <PastHikeList/>
+    <br>
+    <br>
+    <br>
+    <br>
+    <DropdownMenu/>
+    <PlannedHikeFormTwo/>
+    <br>
+    <br>
+    <br>
 
   </div>
 </template>
 
-<script>
-import axios from "axios";
+<script>/*
 import PlannedHikeForm from "@/components/PlannedHikeForm.vue";
+*/
 import PastHikeList from "@/components/HikeList.vue";
+import {useHikeStore} from "@/store/hikeStore";
+import PlannedHikeFormTwo from "@/components/PlannedHikeFormTwo.vue";
+import DropdownMenu from "@/components/DropdownMenu.vue";
 
 export default {
   components: {
-    PastHikeList, PlannedHikeForm,
+    DropdownMenu,
+    PlannedHikeFormTwo,
+    PastHikeList, /*PlannedHikeForm*/
   },
-  data() {
-    return {
-      api: "http://localhost:8089/api/matk",
-      hikingTrails: [],
-      hikes: [],
-      checklistItems: [],
-      selectedChecklistItems: [], // Valitud checklisti üksused
-      areHikeDetailsVisible: false, // Track visibility of all hike buttons
-      showHikeTable: false,
-      selectedTrail: null,
-      showChecklistDropdown: false, // Dropdowni nähtavuse haldamiseks
-      newHike: {
-        trailName: "",
-        meetupPoint: "",
-        startDate: "",
-        template: { id: null },
-      },
-    };
-  },
-  methods: {
-    fetchHikesAndToggle() {
-      this.fetchMyHike();
-      this.toggleHikeButtons();
-    },
-    toggleHikeButtons() {
-      this.areHikeDetailsVisible = !this.areHikeDetailsVisible;
-      // Reset visible hike ID if hiding all hikes
-      if (!this.areHikeDetailsVisible) {
-        this.visibleHikeId = null;
-      }
-    },
-    fetchTrails() {
-      axios
-          .get(`${this.api}/get-trails`)
-          .then((res) => {
-            this.hikingTrails = res.data;
-          })
-          .catch((err) => {
-            console.error("Viga matkaradade laadimisel:", err);
-          });
-    },
-    fetchChecklistItems() {
-      axios
-          .get(`${this.api}/checklist`)
-          .then((res) => {
-            this.checklistItems = res.data;
-          })
-          .catch((err) => {
-            console.error("Viga checklisti üksuste laadimisel:", err);
-          });
-    },
-    fetchMyHike() {
-      axios
-          .get(`${this.api}/get-future-hikes`)
-          .then((res) => {
-            this.hikes = res.data.map((hike) => ({
-              ...hike,
-              checklist: [],
-            }));
-            this.hikes.forEach((hike) => {
-              this.fetchChecklistForHike(hike.id);
-            });
-          })
-          .catch((err) => {
-            console.error("Viga planeeritud matkade laadimisel:", err);
-          });
-    },
-    fetchChecklistForHike(hikeId) {
-      axios
-          .get(`${this.api}/hike/${hikeId}/checklist`)
-          .then((res) => {
-            const hike = this.hikes.find((h) => h.id === hikeId);
-            if (hike) {
-              hike.checklist = res.data;
-            }
-          })
-          .catch((err) => {
-            console.error("Viga checklisti laadimisel:", err);
-          });
-    },
-    toggleHikeTable() {
-      this.showHikeTable = !this.showHikeTable;
-      if (this.showHikeTable) {
-        this.fetchMyHike();
-      }
-    },
-    updateSelectedTrail() {
-      if (this.selectedTrail) {
-        this.newHike.trailName = this.selectedTrail.name;
-        this.newHike.template.id = this.selectedTrail.id;
-      }
-    },
-    toggleDropdown() {
-      this.showChecklistDropdown = !this.showChecklistDropdown;
-    },
-    addHike() {
-      if (!this.newHike.meetupPoint || !this.newHike.startDate) {
-        alert("Kõik väljad tuleb täita!");
-        return;
-      }
-
-      const hikeData = {
-        ...this.newHike,
-        checklistItems: this.selectedChecklistItems, // Lisame checklisti valikud
-      };
-
-      axios
-          .post(`${this.api}/plan-hike`, hikeData)
-          .then((res) => {
-            const hikeId = res.data.id;
-            this.saveChecklist(hikeId);
-            alert("Matk lisatud!");
-            this.resetForm();
-            this.fetchMyHike();
-          })
-          .catch((err) => {
-            console.error("Viga matka lisamisel:", err);
-          });
-    },
-    saveChecklist(hikeId) {
-      axios
-          .post(`${this.api}/hike/${hikeId}/add-checklist`, this.selectedChecklistItems)
-          .then(() => {
-            alert("Checklist salvestatud!");
-          })
-          .catch((err) => {
-            console.error("Viga checklisti salvestamisel:", err);
-          });
-    },
-    resetForm() {
-      this.newHike = {
-        trailName: "",
-        meetupPoint: "",
-        startDate: "",
-        template: { id: null },
-      };
-      this.selectedTrail = null;
-      this.selectedChecklistItems = [];
-    },
-  },
-  mounted() {
-    this.fetchTrails();
-    this.fetchChecklistItems();
+  setup() {
+    const store = useHikeStore();
+    return { store };
   },
 };
 </script>
@@ -191,8 +51,6 @@ export default {
   color: #faebd7;
   margin-bottom: 20px;
 }
-
-
 
 .form-control {
   width: 80%;

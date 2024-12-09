@@ -29,6 +29,13 @@
               <td>{{ hike.meetupPoint }}</td>
               <td>{{ hike.notes }}</td>
               <td>
+                <!-- Checkbox for each checklist item -->
+                <ul>
+                  <li v-for="item in hike.selectedChecklistItems" :key="item.id">
+                    <label :for="`checklist-item-${item.id}`">{{ item.checklistItem.name }}</label>
+                  </li>
+                </ul>
+
                 <ul>
                   <li v-for="item in hike.checklist" :key="item.id">
                     {{ item.checklistItem.name }}

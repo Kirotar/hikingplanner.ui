@@ -121,7 +121,7 @@ export const useHikeStore = defineStore('hikeStore', {
             async fetchChecklist(hikeId = null) {
                 try {
                     if (hikeId) {
-                        const response = await axios.get(`${this.api}/hike/${hikeId}/checklist`);
+                        const response = await axios.get(`${this.api}${hikeId}/checklist`);
                         const hike = this.hikes.find((h) => h.id === hikeId);
                         if (hike) {
                             hike.checklist = response.data;
@@ -156,13 +156,25 @@ export const useHikeStore = defineStore('hikeStore', {
             ,
             saveChecklist(hikeId) {
                 axios
-                    .post(`${this.api}/hike/${hikeId}/add-checklist`, this.selectedChecklistItems)
+                    .post(`${this.api}/${hikeId}/add-checklist`, this.selectedChecklistItems)
                     .then(() => {
                         alert("Checklist salvestatud!");
                     })
                     .catch((err) => {
                         console.error("Viga checklisti salvestamisel:", err);
                     });
+            },
+            async toggleChecklistCompletion(itemId, isCompleted) {
+                try {
+                    // Make the API call to update the status in the backend
+                    const response = await axios.patch(`${this.api}/checklist/${itemId}`, {
+                        is_completed: isCompleted,
+                    });
+                    console.log("API Response:", response.data);
+
+                } catch (error) {
+                    console.error(`Error tehtud/tegemata: ${itemId}:`, error);
+                }
             },
         },
 

@@ -31,16 +31,22 @@
               <td>
                 <!-- Checkbox for each checklist item -->
                 <ul>
-                  <li v-for="item in hike.selectedChecklistItems" :key="item.id">
+                  <li v-for="item in hike.checklist" :key="item.id">
                     <label :for="`checklist-item-${item.id}`">{{ item.checklistItem.name }}</label>
+                    <button
+                        :class="item.is_completed ? 'btn btn-success' : 'btn btn-danger'"
+                        @click="toggleChecklistItem(hike.id, item)"
+                    >
+                      {{ item.is_completed ? "Tehtud!" : "Tegemata" }}
+                    </button>
                   </li>
                 </ul>
 
-                <ul>
+<!--                <ul>
                   <li v-for="item in hike.checklist" :key="item.id">
                     {{ item.checklistItem.name }}
                   </li>
-                </ul>
+                </ul>-->
               </td>
               <td>
                 <button @click="removeProduct(item.name)" class="btn btn-danger"
@@ -67,8 +73,21 @@ import { useHikeStore } from "@/store/hikeStore";
 export default {
   setup() {
     const store = useHikeStore();
-    return { store };
-  },
+// Toggle the is_completed status for a checklist item
+    const toggleChecklistItem = async (item) => {
+      try {
+        const newStatus = !item.is_completed; // Toggle the current status
+        item.is_completed = newStatus; // Update locally for immediate UI feedback
+
+        // Call the store action with both hikeId and itemId
+        await store.toggleChecklistCompletion(item.id, newStatus);
+      } catch (error) {
+        console.error(`Error toggling checklist item ${item.id}:`, error);
+      }
+    };
+
+
+    return { store, toggleChecklistItem };  },
 };
 </script>
 
@@ -81,5 +100,27 @@ export default {
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.9;
 }
 </style>

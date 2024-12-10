@@ -73,4 +73,5 @@ import {useHikeStore} from "@/store/hikeStore";
   display: block;
 }
 
+
 </style>

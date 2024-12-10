@@ -91,6 +91,7 @@ header h1 {
   font-weight: 700; /* Lisatud paksus, et rõhutada */
 }
 
+
 /* Navigatsioon */
 nav ul {
   list-style-type: none;

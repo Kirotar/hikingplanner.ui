@@ -5,6 +5,7 @@
 <template>
   <h1>Lemmikud</h1>
 
+
 </template>
 
 <style scoped>

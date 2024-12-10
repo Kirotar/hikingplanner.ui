@@ -32,6 +32,7 @@ export default {
     PlannedHikeFormTwo,
     PastHikeList, /*PlannedHikeForm*/
   },
+
   setup() {
     const store = useHikeStore();
     return { store };

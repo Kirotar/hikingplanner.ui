@@ -194,6 +194,7 @@ export const useHikeStore = defineStore('hikeStore', {
                 }
                 ,
             }
+
         ,
     })
 ;

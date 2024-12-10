@@ -121,7 +121,7 @@ export const useHikeStore = defineStore('hikeStore', {
             async fetchChecklist(hikeId = null) {
                 try {
                     if (hikeId) {
-                        const response = await axios.get(`${this.api}${hikeId}/checklist`);
+                        const response = await axios.get(`${this.api}/${hikeId}/checklist`);
                         const hike = this.hikes.find((h) => h.id === hikeId);
                         if (hike) {
                             hike.checklist = response.data;
@@ -166,6 +166,8 @@ export const useHikeStore = defineStore('hikeStore', {
             },
             async toggleChecklistCompletion(itemId, isCompleted) {
                 try {
+                    console.log(`Updating checklist item with id: ${itemId}, isCompleted: ${isCompleted}`);
+
                     // Make the API call to update the status in the backend
                     const response = await axios.patch(`${this.api}/checklist/${itemId}`, {
                         is_completed: isCompleted,

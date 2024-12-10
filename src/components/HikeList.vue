@@ -35,7 +35,7 @@
                     <label :for="`checklist-item-${item.id}`">{{ item.checklistItem.name }}</label>
                     <button
                         :class="item.is_completed ? 'btn btn-success' : 'btn btn-danger'"
-                        @click="toggleChecklistItem(hike.id, item)"
+                        @click="toggleChecklistItem(item)"
                     >
                       {{ item.is_completed ? "Tehtud!" : "Tegemata" }}
                     </button>
@@ -85,7 +85,6 @@ export default {
         console.error(`Error toggling checklist item ${item.id}:`, error);
       }
     };
-
 
     return { store, toggleChecklistItem };  },
 };

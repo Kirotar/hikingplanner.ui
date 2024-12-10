@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Planeeri uus matk</h3>
-    <form @submit.prevent="store.addHike()" class="planned-form">
+    <form @submit.prevent="store.addHikeWithChecklist()" class="planned-form">
       <div class="form-group mb-2">
         <label for="trailDropdown">Matkaraja valik:</label>
         <select

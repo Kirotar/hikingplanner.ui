@@ -33,7 +33,7 @@
       <input type="date" v-model="store.newHike.startDate" class="form-control" required />
 
       <PlannedChecklist/>
-
+<br/>
       <button type="submit" class="btn green-btn mt-3">Lisa matk</button>
     </form>
   </div>

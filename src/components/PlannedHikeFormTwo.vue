@@ -14,8 +14,9 @@
                v-model="store.newHike.meetupPoint" class="form-control col" required/>
       </div>
       <PlannedChecklist/>
-
-      <button class="btn btn-success w-100 col btn-lg">Lisa matk</button>
+<div>
+      <button class="btn btn-success w-10 col btn-lg">Lisa matk</button>
+</div>
     </form>
   </div>
 </template>

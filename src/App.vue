@@ -15,6 +15,7 @@
 
     <!-- Router View - this will display the appropriate page based on the route -->
     <router-view></router-view>
+
   </div>
 </template>
 

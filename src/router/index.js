@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import PastHikes from '@/views/PastHikes.vue';
 import PlannedHikes from '@/views/PlannedHikes.vue';
+import GoalsAndAchievements from "@/views/GoalsAndAchievements.vue";
 
 const routes = [
     {
@@ -12,6 +13,12 @@ const routes = [
         path: '/planned',
         name: 'Planeeritud matkad',
         component: PlannedHikes,
+    },
+
+    {
+        path: '/goals',
+        name: 'Saavutused & Eesmärgid',
+        component: GoalsAndAchievements,
     },
 
 ];

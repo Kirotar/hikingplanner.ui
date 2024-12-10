@@ -100,7 +100,18 @@ export const useHikeStore = defineStore('hikeStore', {
                     // Toggle visibility of a specific hike
                     this.visibleHikeId = this.visibleHikeId === hikeId ? null : hikeId;
                     if (this.visibleHikeId === hikeId) {
-                        this.fetchChecklist(hikeId); // Populate selected items
+                        this.fetchChecklist(hikeId).then(() => {
+                            // After fetching, restore saved statuses from localStorage
+                            const hike = this.hikes.find(h => h.id === hikeId);
+                            if (hike && hike.checklist) {
+                                hike.checklist.forEach(item => {
+                                    const savedStatus = localStorage.getItem(`checklist_item_${item.id}_completed`);
+                                    if (savedStatus !== null) {
+                                        item.is_completed = savedStatus === 'true';
+                                    }
+                                });
+                            }
+                        });
                     } else {
                         this.selectedChecklistItems = []; // Clear selection
                     }
@@ -166,16 +177,24 @@ export const useHikeStore = defineStore('hikeStore', {
             },
             async toggleChecklistCompletion(itemId, isCompleted) {
                 try {
-                    console.log(`Updating checklist item with id: ${itemId}, isCompleted: ${isCompleted}`);
-
-                    // Make the API call to update the status in the backend
                     const response = await axios.patch(`${this.api}/checklist/${itemId}`, {
                         is_completed: isCompleted,
                     });
-                    console.log("API Response:", response.data);
 
+                    // Update the item in the local state if needed
+                    this.hikes.forEach(hike => {
+                        if (hike.checklist) {
+                            const itemToUpdate = hike.checklist.find(item => item.id === itemId);
+                            if (itemToUpdate) {
+                                itemToUpdate.is_completed = isCompleted;
+                            }
+                        }
+                    });
+
+                    return response.data;
                 } catch (error) {
                     console.error(`Error tehtud/tegemata: ${itemId}:`, error);
+                    throw error;
                 }
             },
         },

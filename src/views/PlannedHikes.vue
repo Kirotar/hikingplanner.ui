@@ -1,18 +1,21 @@
 <template>
-  <div class="planned-container">
+  <div id="app" class="planned-container">
     <h1>Planeeritud matkad</h1>
+    <div id="app">
     <button @click="store.fetchFutureHikesAndToggle" class="btn green-btn">Planeeritud matkad</button>
+    </div>
     <PastHikeList/>
     <br>
     <br>
     <br>
     <br>
+    <h3>Planeeri uus matk: </h3>
     <DropdownMenu/>
-    <PlannedHikeFormTwo/>
-    <br>
-    <br>
-    <br>
-<PlannedHikeForm/>
+<!--    <PlannedHikeFormTwo/>-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <br>-->
+    <PlannedHikeForm/>
   </div>
 </template>
 
@@ -21,7 +24,7 @@ import PlannedHikeForm from "@/components/PlannedHikeForm.vue";
 */
 import PastHikeList from "@/components/HikeList.vue";
 import {useHikeStore} from "@/store/hikeStore";
-import PlannedHikeFormTwo from "@/components/PlannedHikeFormTwo.vue";
+// import PlannedHikeFormTwo from "@/components/PlannedHikeFormTwo.vue";
 import DropdownMenu from "@/components/DropdownMenu.vue";
 import PlannedHikeForm from "@/components/PlannedHikeForm.vue";
 
@@ -29,7 +32,7 @@ export default {
   components: {
     PlannedHikeForm,
     DropdownMenu,
-    PlannedHikeFormTwo,
+    // PlannedHikeFormTwo,
     PastHikeList, /*PlannedHikeForm*/
   },
 
@@ -49,7 +52,6 @@ export default {
 .planned-container h1 {
   font-family: "Lora", serif;
   font-size: 2.5rem;
-  font-weight: 700;
   line-height: 1.2;
   color: #faebd7;
   margin-bottom: 20px;

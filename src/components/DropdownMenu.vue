@@ -1,6 +1,6 @@
 <template>
-  <div class="dropdown text-center mb-4" >
-    <button class="dropbtn btn btn-success btn-lg" @click="store.toggleDropdownVisibility()">Vali matkarada</button>
+  <div id="app" class="dropdown text-center mb-4" >
+    <button class="dropbtn btn btn-success" @click="store.toggleDropdownVisibility()">Vali matkarada</button>
     <div class="dropdown-content" v-if="store.isDropdownVisible">
       <a v-for="trail in store.hikingTrails" :key="trail.id" @click="store.selectTrail(trail)">
         {{ trail.name }}
@@ -30,6 +30,7 @@ import {useHikeStore} from "@/store/hikeStore";
    font-size: 20px; /* Font size */
    cursor: pointer; /* Pointer on hover */
    transition: background-color 0.3s ease; /* Smooth transition */
+   text-align: left;
  }
 
 .dropbtn:hover {
@@ -41,6 +42,7 @@ import {useHikeStore} from "@/store/hikeStore";
   display: block;
   color: black;
   text-decoration: none;
+  text-align: left;
 }
 
  .dropdown {

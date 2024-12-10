@@ -59,8 +59,8 @@ html, body {
   flex-direction: column;
   text-align: left; /* Joondab teksti vasakule */
   padding: 20px;
+  align-items: start; /*Joondab vasakule */
 }
-
 /* Päise stiilid */
 header {
   width: 100%;
@@ -81,7 +81,7 @@ header {
 
 /* Pealkiri */
 header h1 {
-  font-family: "Lora", serif;
+  font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   color: #faebd7;
   margin: 0;
@@ -124,9 +124,4 @@ h1, h2, h3, h4, h5 {
   font-optical-sizing: auto;
   color: #faebd7;
 }
-
-
-
-
-
 </style>

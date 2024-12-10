@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h3>Planeeri uus matk</h3>
+  <div id="app">
     <form @submit.prevent="store.addHikeWithChecklist()" class="planned-form">
       <div class="form-group mb-2">
         <label for="trailDropdown">Matkaraja valik:</label>
@@ -33,8 +32,10 @@
       <input type="date" v-model="store.newHike.startDate" class="form-control" required />
 
       <PlannedChecklist/>
-
-      <button type="submit" class="btn green-btn mt-3">Lisa matk</button>
+      <br>
+      <div>
+        <button class="btn btn-success w-50 btn-lg">Lisa matk</button>
+      </div>
     </form>
   </div>
 </template>

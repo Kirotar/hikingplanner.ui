@@ -44,6 +44,7 @@ export const useHikeStore = defineStore('hikeStore', {
             async fetchTrails() {
                 try {
                     const response = await axios.get('http://localhost:8089/api/matk/get-trails');
+                    console.log('Fetched Trails:', response.data); // Log the data to inspect it
                     this.hikingTrails = response.data;
                 } catch (error) {
                     console.error('Viga matkaradade laadimisel:', error);

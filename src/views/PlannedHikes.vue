@@ -9,9 +9,11 @@
     <br>
     <br>
     <br>
+<!--
     <h3>Planeeri uus matk: </h3>
-    <DropdownMenu/>
-<!--    <PlannedHikeFormTwo/>-->
+-->
+<!--        <DropdownMenu/>
+<PlannedHikeFormTwo/>-->
 <!--    <br>-->
 <!--    <br>-->
 <!--    <br>-->
@@ -25,13 +27,13 @@ import PlannedHikeForm from "@/components/PlannedHikeForm.vue";
 import PastHikeList from "@/components/HikeList.vue";
 import {useHikeStore} from "@/store/hikeStore";
 // import PlannedHikeFormTwo from "@/components/PlannedHikeFormTwo.vue";
-import DropdownMenu from "@/components/DropdownMenu.vue";
+//import DropdownMenu from "@/components/DropdownMenu.vue";
 import PlannedHikeForm from "@/components/PlannedHikeForm.vue";
 
 export default {
   components: {
     PlannedHikeForm,
-    DropdownMenu,
+    //DropdownMenu,
     // PlannedHikeFormTwo,
     PastHikeList, /*PlannedHikeForm*/
   },

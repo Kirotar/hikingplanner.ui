@@ -23,28 +23,21 @@
         <div class="table-cell value">
           <a :href="trail.detailsUrl" target="_blank">loodusegakoos.ee</a></div>
       </div>
-      <div class="table-row" >
+      <div class="table-row">
         <div class="table-cell label">
-      <i
-          class="fa fa-heart"
-          :class="{ red: trail.is_favorite }"
-          @click="toggleFavorite(trail)"
-      ></i>
+          <i
+              class="fa fa-heart"
+              :class="{ red: trail.is_favorite }"
+              @click="toggleFavorite(trail)"
+          ></i>
         </div>
+        <div class="table-cell value">
+          <button type="button" class="btn btn-success" @click="$router.push('/planned')">Planeeri
+            matk
+          </button>
+
         </div>
-      <!--      <div class="table-row">
-              <div class="table-cell label">Märgi lemmikuks</div>
-
-              <div class="table-cell value">
-                <button
-                    :class="trail.is_favorite ? 'btn btn-success' : 'btn btn-secondary'"
-                    @click="toggleFavorite(trail)"
-                >
-                  {{ trail.is_favorite ? "Süda!" : "Märgi lemmikuks?" }}
-                </button>
-              </div>
-            </div>-->
-
+      </div>
     </div>
   </div>
 </template>
@@ -67,7 +60,7 @@ export default {
       localStorage.setItem(`hikingtrail${trail.id}_favorite`, trail.is_favorite.toString()); // Persist to localStorage
     };
 
-    return { store, toggleFavorite };
+    return {store, toggleFavorite};
   },
 };
 </script>

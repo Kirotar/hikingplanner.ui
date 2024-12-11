@@ -1,4 +1,31 @@
 <template>
+  <!-- Toggle Achievements Table -->
+  <div id= "app" class="mt-4">
+    <button @click="toggleAchievementsTable" class="btn green-btn">
+      {{ showAchievementsTable ? "Peida Saavutused" : "Vaata enda saavutusi" }}
+    </button>
+    <div v-if="showAchievementsTable" class="mt-3">
+      <h2>Saavutuste Tabel</h2>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Matkarada</th>
+          <th>Matka Tüübid</th>
+          <th>Maamärgid</th>
+          <th>Loomad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="achievement in achievements" :key="achievement.id">
+          <td>{{ achievement.hikeName || '' }}</td>
+          <td>{{ achievement.hikeTypeNames.join(", ") || '' }}</td>
+          <td>{{ achievement.landmarkNames.join(", ") || '' }}</td>
+          <td>{{ achievement.animalNames.join(", ") || '' }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <div id="app" class="form-container mt-4">
     <h3>Lisa uus saavutus</h3>
     <form @submit.prevent="addAchievement">
@@ -57,34 +84,6 @@
         <button type="submit" class="btn green-btn mt-3">Salvesta Saavutus</button>
       </div>
     </form>
-
-    <!-- Toggle Achievements Table -->
-    <div id= "app" class="mt-4">
-      <button @click="toggleAchievementsTable" class="btn green-btn">
-        {{ showAchievementsTable ? "Peida Saavutused" : "Vaata enda saavutusi" }}
-      </button>
-      <div v-if="showAchievementsTable" class="mt-3">
-        <h2>Saavutuste Tabel</h2>
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>Matkarada</th>
-            <th>Matka Tüübid</th>
-            <th>Maamärgid</th>
-            <th>Loomad</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="achievement in achievements" :key="achievement.id">
-            <td>{{ achievement.hikeName || '' }}</td>
-            <td>{{ achievement.hikeTypeNames.join(", ") || '' }}</td>
-            <td>{{ achievement.landmarkNames.join(", ") || '' }}</td>
-            <td>{{ achievement.animalNames.join(", ") || '' }}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -242,8 +241,18 @@ label {
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
+/* et nupukesed oleksid ühe suurused*/
 button {
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  min-width: 200px;
+  min-height: 50px;
+  box-sizing: border-box;
 }
 
 .green-btn {
@@ -259,6 +268,7 @@ button {
 
 .green-btn:hover {
   background-color: #45a049;
+  color: white;
 }
 
 .mt-3 {

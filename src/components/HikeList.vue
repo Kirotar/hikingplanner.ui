@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <div v-if="store.isVisible">
       <div v-for="hike in store.hikes" :key="hike.id" class="hike-info">
         <button @click="store.toggleVisibility(hike.id)" class="btn green-btn">
@@ -33,7 +33,7 @@
             </div>
 
             <div class="table-row checklist-section">
-              <div class="table-cell label">CheckList</div>
+              <div class="table-cell label">Asjad kaasa</div>
               <div class="table-cell value">
                 <ul class="checklist-mobile">
                   <li v-for="item in hike.checklist" :key="item.id" class="checklist-item">
@@ -41,21 +41,41 @@
                       <span class="checklist-name">{{ item.checklistItem.name }}</span>
                       <div class="checklist-actions">
                         <button
-                            :class="item.is_completed ? 'btn btn-success' : 'btn btn-danger'"
+                            :class="item.is_completed ? 'btn btn-success' : 'btn btn-secondary'"
                             @click="toggleChecklistItem(item)"
                         >
                           {{ item.is_completed ? "Tehtud!" : "Tegemata" }}
                         </button>
+
                         <button
                             class="btn btn-danger delete-btn"
                             @click="deleteChecklistItem(item.id, hike.id)"
                         >
-                          Delete
+                          Kustuta
                         </button>
+
                       </div>
                     </div>
                   </li>
                 </ul>
+                <button
+                    class="btn btn-warning update-btn"
+                    @click="showPlannedChecklist = !showPlannedChecklist"
+                    >
+                  Lisa
+                </button>
+
+                <PlannedChecklist
+                    v-if="showPlannedChecklist"
+                    @close="showPlannedChecklist = false"
+                />
+                <button
+                    class="btn btn-warning update-btn"
+                    @click="handleButtonClick(hike.id); showPlannedChecklist = !showPlannedChecklist"
+
+                >
+                  Salvesta
+                </button>
               </div>
             </div>
           </div>
@@ -64,61 +84,61 @@
     </div>
   </div>
 </template>
-
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import { useHikeStore } from "@/store/hikeStore";
 import axios from "axios";
+import PlannedChecklist from "@/components/PlannedChecklist.vue";
 
-export default {
-  setup() {
-    const store = useHikeStore();
-// Toggle the is_completed status for a checklist item
-    const toggleChecklistItem = async (item) => {
-      try {
-        const newStatus = !item.is_completed; // Toggle the current status
+const store = useHikeStore();
+const showPlannedChecklist = ref(false);
 
-        // Call the store action first to ensure backend is updated
-        await store.toggleChecklistCompletion(item.id, newStatus);
+const toggleChecklistItem = async (item) => {
+  try {
+    const newStatus = !item.is_completed;
 
-        // Update the item status locally
-        item.is_completed = newStatus;
+    // Use store method to update backend and local state
+    await store.toggleChecklistCompletion(item.id, newStatus);
 
-        // Persist the completed status in local storage
-        localStorage.setItem(`checklist_item_${item.id}_completed`, newStatus.toString());
-      } catch (error) {
-        console.error(`Error toggling checklist item ${item.id}:`, error);
-      }
-    };
-    // When initializing or loading the component, add a method to check local storage
-    const initializeChecklistItems = () => {
-      // Find the current hike in the store
-      const currentHikes = store.hikes;
-
-      currentHikes.forEach(hike => {
-        if (hike.checklist) {
-          hike.checklist.forEach(item => {
-            const storedStatus = localStorage.getItem(`checklist_item_${item.id}_completed`);
-            if (storedStatus !== null) {
-              item.is_completed = storedStatus === 'true';
-            }
-          });
-        }
-      });
-    };
-    const deleteChecklistItem = async (itemId, hikeId) => {
-      try{
-        await axios.delete(`http://localhost:8089/api/matk/delete-items/${itemId}`);
-        store.fetchChecklist(hikeId)
-      } catch (error) {
-        console.error(`Error kustutamisel:`, error);
-      }
-    }
-
-    return { store, toggleChecklistItem, deleteChecklistItem, initializeChecklistItems };  },
-  mounted() {
-    this.initializeChecklistItems();
-  },
+    // Optional: Persist in local storage if needed
+    localStorage.setItem(`checklist_item_${item.id}_completed`, newStatus.toString());
+  } catch (error) {
+    console.error(`Error toggling checklist item ${item.id}:`, error);
+    // Optional: Add user-friendly error notification
+  }
 };
+
+const deleteChecklistItem = async (itemId, hikeId) => {
+  try {
+    await axios.delete(`http://localhost:8089/api/matk/delete-items/${itemId}`);
+    await store.fetchChecklist(hikeId);
+  } catch (error) {
+    console.error('Viga kustutamisel:', error);
+    // Add error handling, perhaps a toast notification
+  }
+};
+async function handleButtonClick(hikeId) {
+  try {
+    await store.saveChecklist(hikeId); // Save checklist
+    await store.fetchChecklist(hikeId); // Fetch updated checklist
+    store.selectedChecklistItems = []; //Reset form
+
+  } catch (error) {
+    console.error('Error handling button click:', error);
+  }
+}
+
+onMounted(() => {
+  // Initialize checklist items from local storage more efficiently
+  store.hikes.forEach(hike => {
+    hike.checklist?.forEach(item => {
+      const storedStatus = localStorage.getItem(`checklist_item_${item.id}_completed`);
+      if (storedStatus !== null) {
+        item.is_completed = storedStatus === 'true';
+      }
+    });
+  });
+});
 </script>
 
 <style scoped>
@@ -228,6 +248,9 @@ export default {
   background-color: #28a745;
   color: white;
   border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 .btn-danger {
@@ -235,7 +258,17 @@ export default {
   color: white;
   border: none;
 }
-
+.btn-warning {
+  background-color: #4CAF50; /* Green background */
+  border-color: #45a049; /* Green border */
+  color: white; /* White text */
+  font-size: 16px; /* Larger text */
+  padding: 10px 20px; /* Add padding */
+/*  border-radius: 8px; !* Rounded corners *!*/
+}
+.btn-warning:hover {
+  background-color: darkgreen; /* Darker orange on hover */
+}
 .delete-btn {
   margin-left: 10px;
 }

@@ -8,7 +8,7 @@ const routes = [
     {
         path: '/finished',
         name: 'Tehtud matkad',
-        component: PastHikes
+        component: PastHikes,
     },
     {
         path: '/planned',

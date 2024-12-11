@@ -5,7 +5,7 @@
         class="btn green-btn dropdown-toggle"
         @click="toggleDropdown"
     >
-      Vali Checklist
+      Vali matkavarustus
     </button>
     <div v-show="showChecklistDropdown" class="dropdown-menu">
       <div

@@ -50,7 +50,7 @@ html, body {
   background-size: cover; /* Katab kogu ala proportsionaalselt */
   background-position: center; /* Keskendab tausta */
   background-attachment: fixed; /* Taust jääb paigale */
-  opacity: 0.7; /* Läbipaistvus */
+  opacity: 0.6; /* Läbipaistvus */
   z-index: -1; /* Tagab, et see jääb sisu taha */
 }
 

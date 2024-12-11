@@ -3,6 +3,7 @@
     <div
         v-for="trail in store.hikingTrails"
         :key="trail.id"
+        :data-id="trail.id"
         class="trail-card"
     >
 
@@ -51,16 +52,45 @@ export default {
     store.fetchTrails().then(() => {
       store.hikingTrails.forEach((trail) => {
         const savedFavorite = localStorage.getItem(`hikingtrail${trail.id}_favorite`);
-        trail.is_favorite = savedFavorite === "true"; // Initialize is_favorite from localStorage
+        trail.is_favorite = savedFavorite === "true"; // laeb favorite'itud
       });
+      sortTrails();
     });
     // Toggle favorite status
     const toggleFavorite = (trail) => {
       trail.is_favorite = !trail.is_favorite; // Update the favorite status
-      localStorage.setItem(`hikingtrail${trail.id}_favorite`, trail.is_favorite.toString()); // Persist to localStorage
+      localStorage.setItem(`hikingtrail${trail.id}_favorite`, trail.is_favorite.toString()); // Salvestab localStorage'isse
+      animateTrailMove(trail); //Sorteeri rajad ümber
     };
 
-    return {store, toggleFavorite};
+    /* Visuaalse animatsiooni rakendamine */
+    const animateTrailMove = (trail) => {
+      const trailElement = document.querySelector(`.trail-card[data-id="${trail.id}"]`); // document.querySelector: Otsib DOM-ist matkaraja kaarti (trail-card), mille data-id vastab trail.id-le.
+      if (trailElement) {
+        trailElement.classList.add("moving"); // Lisa animatsiooni klass
+
+        // Ajastab animatsiooni
+        setTimeout(() => {
+          sortTrails();
+          setTimeout(() => {
+            trailElement.classList.remove("moving"); // Eemalda "moving" klass
+            trailElement.classList.add("normal"); // Taastab algse suuruse
+          }, 300); //  0,3s
+        }, 300); // 0,3s
+      }
+    };
+    const sortTrails = () => {
+      // Sorteerime olemasoleva arrayd
+      const sortedTrails = [...store.hikingTrails].sort((a, b) => {
+        if (a.is_favorite === b.is_favorite) {
+          return 0;
+        }
+        return b.is_favorite - a.is_favorite; // punase südamega rajad ette poole
+      });
+      // Anname uue järjestatud massiivi loendile
+      store.hikingTrails = sortedTrails;
+    };
+    return {store, toggleFavorite, sortTrails};
   },
 };
 </script>
@@ -128,5 +158,18 @@ export default {
 
 .fa-heart.red {
   color: red;
+}
+
+.trail-card {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.trail-card.moving {
+  transform: scale(1.20); /* Veidi suuremaks */
+  opacity: 0.8; /* Veidi läbipaistvamaks */
+}
+.trail-card.normal {
+  transform: scale(1); /* Tavaline suurus */
+  opacity: 1; /* Tavaline läbipaistvus */
 }
 </style>

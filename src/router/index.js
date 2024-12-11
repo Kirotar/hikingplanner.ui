@@ -29,7 +29,7 @@ const routes = [
         path: '/',
         name: '',
         component: FrontPage,
-    },
+    }
 ];
 
 const router = createRouter({

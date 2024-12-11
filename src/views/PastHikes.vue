@@ -19,6 +19,8 @@
   <br>
   <div>
     <h3>Minu saavutused matkal</h3>
+    <br>
+    <br>
     <GoalsAndAchievementsForm/>
     <br>
   </div>

@@ -33,6 +33,9 @@ html, body {
   width: 100%;
   font-family: "Playfair Display", sans-serif;
   font-optical-sizing: auto;
+  display: flex;
+  justify-content: center;
+  align-items: start;
 }
 
 /* Taustapilt */
@@ -54,13 +57,13 @@ html, body {
 #app {
   position: relative;
   z-index: 1;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  text-align: left; /* Joondab teksti vasakule */
+  text-align: center; /* Joondab teksti keskele */
+  align-items: center; /* Joondab kõik elemendid keskele */
   padding: 20px;
-  align-items: start; /*Joondab vasakule */
 }
+
 /* Päise stiilid */
 header {
   width: 100%;
@@ -75,7 +78,7 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column; /* Asetab pealkirja ja menüü üksteise alla */
-  align-items: flex-start; /* Joondab vasakule */
+  align-items: center; /* Joondab keskele */
   gap: 10px; /* Vahe pealkirja ja menüü vahel */
 }
 
@@ -86,11 +89,10 @@ header h1 {
   color: #faebd7;
   margin: 0;
   padding: 0;
-  text-align: left; /* Joondab pealkirja vasakule */
+  text-align: center; /* Joondab pealkirja keskele */
   font-size: 2.5rem; /* Suurem font suurus */
   font-weight: 700; /* Lisatud paksus, et rõhutada */
 }
-
 
 /* Navigatsioon */
 nav ul {
@@ -98,7 +100,7 @@ nav ul {
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: flex-start; /* Menüü joondus vasakule */
+  justify-content: center; /* Menüü joondus keskele */
   gap: 15px; /* Vahe elementide vahel */
 }
 
@@ -124,4 +126,5 @@ h1, h2, h3, h4, h5 {
   font-optical-sizing: auto;
   color: #faebd7;
 }
+
 </style>

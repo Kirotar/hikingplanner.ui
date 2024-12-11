@@ -93,9 +93,11 @@ textarea {
 button {
   width: auto; /* Nuppude automaatne suurus */
   display: inline-block; /* Hoia normaalne suurus */
-  margin-left: 0; /* Nihuta vasakule */
   font-size: 1rem;
   padding: 10px 20px; /* Kohanda suurust */
+  margin: 10px auto; /* Automaatne marginaal keskele joondamiseks */
+  text-align: center; /* Teksti keskele joondamiseks nupus */
+  display: block; /* Vajalik, et auto marginaal töötaks keskel */
 }
 
 </style>

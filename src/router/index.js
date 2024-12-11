@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import PastHikes from '@/views/PastHikes.vue';
 import PlannedHikes from '@/views/PlannedHikes.vue';
+import FrontPage from "@/views/FrontPage.vue";
 
 
 const routes = [
@@ -23,6 +24,11 @@ const routes = [
         path: '/goals',
         name: 'Saavutused ja eesmärgid',
         component: "",
+    },
+    {
+        path: '/',
+        name: '',
+        component: FrontPage,
     },
 ];
 

@@ -2,7 +2,7 @@
   <div class="kaart-container" @click="getCoordinates">
     <!-- PNG kaart -->
     <img src="@/assets/eesti-kaart-roheline.png" alt="Eesti kaart" class="kaart" />
-    <p v-if="coordinates">X: {{ coordinates.x }}, Y: {{ coordinates.y }}</p>
+<!--    <p v-if="coordinates">X: {{ coordinates.x }}, Y: {{ coordinates.y }}</p>-->
     <!-- Maakonna pinid ja nimed -->
     <div
         v-for="(maakond, index) in maakonnad"
@@ -123,14 +123,14 @@ export default {
   },
 
   methods: {
-    getCoordinates(event) {
-      // Leiab koordinaadid klikitud kohas
-      const rect = event.target.getBoundingClientRect();
-      this.coordinates = {
-        x: Math.round(event.clientX - rect.left),
-        y: Math.round(event.clientY - rect.top),
-      };
-    },
+    // getCoordinates(event) {
+    //   // Leiab koordinaadid klikitud kohas
+    //   const rect = event.target.getBoundingClientRect();
+    //   this.coordinates = {
+    //     x: Math.round(event.clientX - rect.left),
+    //     y: Math.round(event.clientY - rect.top),
+    //   };
+    // },
     goToUrl(url)
     {
       window.open(url, "_blank");

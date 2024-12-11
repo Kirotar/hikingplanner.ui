@@ -2,7 +2,9 @@
   <div class="background-image"></div>
   <div id="app">
     <header>
-      <h1>Minu matk</h1>
+      <router-link to="/" class="logo-link" >
+        <h1>Minu matk</h1>
+      </router-link>
       <nav>
         <ul>
           <li><router-link to="/planned">PLANEERITUD MATKAD</router-link></li>
@@ -94,7 +96,15 @@ header h1 {
   font-size: 2.5rem; /* Suurem font suurus */
   font-weight: 700; /* Lisatud paksus, et rõhutada */
 }
+.logo-link {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Use default heading color */
+  font-size: inherit; /* Use the font size of the <h1> */
+}
 
+.logo-link h1 {
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+}
 /* Navigatsioon */
 nav ul {
   list-style-type: none;

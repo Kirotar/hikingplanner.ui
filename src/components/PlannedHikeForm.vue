@@ -63,18 +63,15 @@ export default {
 
 
 <style scoped>
-.green-btn {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+/* kontrollib matkaraja valik: kastikesi*/
+.form-control {
+  width: 200%;
+  max-width: 500px;
+  padding: 10px;
   font-size: 1rem;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  cursor: pointer;
+  margin-bottom: 15px;
+  align-items: center;
 }
-
-.green-btn:hover {
-  background-color: #45a049;
-}
-
 </style>

@@ -49,6 +49,9 @@ export default {
 .planned-container {
   padding: 20px;
   text-align: left;
+  display: flex;
+  align-items: center;
+
 }
 
 .planned-container h1 {
@@ -57,16 +60,6 @@ export default {
   line-height: 1.2;
   color: #faebd7;
   margin-bottom: 20px;
-}
-
-.form-control {
-  width: 80%;
-  max-width: 500px;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 15px;
 }
 
 .dropdown {
@@ -101,6 +94,7 @@ export default {
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
+
 }
 .green-btn:hover {
   background-color: #45a049;

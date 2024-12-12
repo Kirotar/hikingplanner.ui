@@ -27,7 +27,7 @@ export const useHikeStore = defineStore('hikeStore', {
         actions: {
             async fetchPastHikes() {
                 try {
-                    const response = await axios.get('http://localhost:8091/api/matk/get-past-hikes');
+                    const response = await axios.get(`${this.api}/get-past-hikes`);
                     this.hikes = response.data;
                 } catch (error) {
                     console.error('Viga tehtud matkade laadimisel:', error);
@@ -35,7 +35,7 @@ export const useHikeStore = defineStore('hikeStore', {
             },
             async fetchFutureHikes() {
                 try {
-                    const response = await axios.get('http://localhost:8091/api/matk/get-future-hikes');
+                    const response = await axios.get(`${this.api}/get-future-hikes`);
                     this.hikes = response.data;
                 } catch (error) {
                     console.error('Viga tehtud matkade laadimisel:', error);
@@ -43,7 +43,7 @@ export const useHikeStore = defineStore('hikeStore', {
             },
             async fetchTrails() {
                 try {
-                    const response = await axios.get('http://localhost:8091/api/matk/get-trails');
+                    const response = await axios.get(`${this.api}/get-trails`);
                     console.log('Fetched Trails:', response.data); // Log the data to inspect it
                     this.hikingTrails = response.data;
                 } catch (error) {

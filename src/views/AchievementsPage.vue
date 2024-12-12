@@ -6,9 +6,8 @@
         <img
             id="one-hike"
             src="../assets/rada.png"
-            height="294"
-            width="250"
             :style="{ opacity: nrOfHikesAchieved > 1 ? 1 : 0.5 }"
+            alt="Raja ikoon"
         />
         <label for="one-hike">Esimene matk tehtud!</label>
       </div>
@@ -16,9 +15,9 @@
         <img
             id="five-hikes"
             src="../assets/rada.png"
-            height="294"
-            width="250"
             :style="{ opacity: nrOfHikesAchieved > 5 ? 1 : 0.5 }"
+            alt="Raja ikoon"
+
         />
         <label for="five-hikes">Viis matka tehtud!</label>
       </div>
@@ -26,9 +25,9 @@
         <img
             id="ten-hikes"
             src="../assets/rada.png"
-            height="294"
-            width="250"
             :style="{ opacity: nrOfHikesAchieved > 10 ? 1 : 0.5 }"
+            alt="Raja ikoon"
+
         />
         <label for="hike-fivehundered">Kümme matka tehtud!</label>
       </div>
@@ -36,9 +35,9 @@
         <img
             id="hike-thousand"
             src="../assets/rada.png"
-            height="294"
-            width="250"
             :style="{ opacity: nrOfHikesAchieved > 15 ? 1 : 0.5 }"
+            alt="Raja ikoon"
+
         />
         <label for="hike-thousand">15 matka tehtud!</label>
       </div>
@@ -46,9 +45,9 @@
         <img
             id="hike-tenthousand"
             src="../assets/rada.png"
-            height="294"
-            width="250"
             :style="{ opacity: nrOfHikesAchieved > 20 ? 1 : 0.5 }"
+            alt="Raja ikoon"
+
         />
         <label for="hike-tenthousand">20 matka tehtud!</label>
       </div>
@@ -62,9 +61,9 @@
         <img
             id="hike-ten"
             src="../assets/hike.png"
-            height="294"
-            width="189"
             :style="{ opacity: distanceAchieved > 10 ? 1 : 0.5 }"
+            alt="Matkaja ikoon"
+
         />
         <label for="hike-ten">10 kilomeetrit läbitud!</label>
       </div>
@@ -72,9 +71,9 @@
         <img
             id="hike-hundred"
             src="../assets/hike.png"
-            height="294"
-            width="189"
             :style="{ opacity: distanceAchieved > 100 ? 1 : 0.5 }"
+            alt="Matkaja ikoon"
+
         />
         <label for="hike-hundred">100 kilomeetrit läbitud!</label>
       </div>
@@ -82,9 +81,9 @@
         <img
             id="hike-fivehundered"
             src="../assets/hike.png"
-            height="294"
-            width="189"
             :style="{ opacity: distanceAchieved > 500 ? 1 : 0.5 }"
+            alt="Matkaja ikoon"
+
         />
         <label for="hike-fivehundered">500 kilomeetrit läbitud!</label>
       </div>
@@ -92,9 +91,9 @@
         <img
             id="hike-thousand"
             src="../assets/hike.png"
-            height="294"
-            width="189"
             :style="{ opacity: distanceAchieved > 1000 ? 1 : 0.5 }"
+            alt="Matkaja ikoon"
+
         />
         <label for="hike-thousand">1000 kilomeetrit läbitud!</label>
       </div>
@@ -102,9 +101,9 @@
         <img
             id="hike-tenthousand"
             src="../assets/hike.png"
-            height="294"
-            width="189"
             :style="{ opacity: distanceAchieved > 10000 ? 1 : 0.5 }"
+            alt="Matkaja ikoon"
+
         />
         <label for="hike-tenthousand">10 000 kilomeetrit läbitud!</label>
       </div>
@@ -161,19 +160,16 @@ export default {
 
 <style scoped>
 .achievement-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  width: 100%;
-  align-items: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .achievement-images {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
 }
 
@@ -181,32 +177,72 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 0 1 calc(20% - 10px);
-  max-width: 250px;
-  width: 100%;
+  text-align: center;
+  flex: 0 1 calc(20% - 15px);
+  max-width: 200px;
+  margin-bottom: 15px;
 }
 
 .achievement-item img {
   max-width: 100%;
-  height: auto;
+  height: 200px;  /* Fixed height to maintain consistent sizing */
+  width: 100%;
   object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.achievement-item label {
+  font-size: 0.9rem;
+  color: black;
 }
 
 @media (max-width: 1200px) {
   .achievement-item {
-    flex: 0 1 calc(33% - 10px);
+    flex: 0 1 calc(33.33% - 15px);
   }
 }
 
 @media (max-width: 768px) {
   .achievement-item {
-    flex: 0 1 calc(50% - 10px);
+    flex: 0 1 calc(50% - 15px);
+    max-width: 250px;
+  }
+
+  .achievement-item img {
+    height: 250px;
   }
 }
 
 @media (max-width: 480px) {
+  .achievement-container {
+    padding: 10px;
+  }
+
+  .achievement-images {
+    gap: 10px;
+  }
+
+  .achievement-item {
+    flex: 0 1 calc(50% - 10px);
+    max-width: 100%;
+  }
+
+  .achievement-item img {
+    height: 200px;
+  }
+
+  .achievement-item label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 350px) {
   .achievement-item {
     flex: 0 1 100%;
+  }
+
+  .achievement-item img {
+    height: 150px;
   }
 }
 </style>

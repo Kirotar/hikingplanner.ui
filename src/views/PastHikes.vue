@@ -21,9 +21,9 @@
 
 <script>
 import Dropdown from "@/components/DropdownMenu.vue";
-import PastHikeList from "@/components/HikeList.vue";
 import PastHikeForm from "@/components/PastHikeForm.vue";
 import {useHikeStore} from "@/store/hikeStore";
+import PastHikeList from "@/components/PastHikeList.vue";
 
 export default {
   setup() {

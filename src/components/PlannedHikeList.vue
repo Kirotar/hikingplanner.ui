@@ -20,10 +20,6 @@
               <div class="table-cell value">{{ hike.endDate }}</div>
             </div>
             <div class="table-row">
-              <div class="table-cell label">Kestvus</div>
-              <div class="table-cell value">{{ hike.duration }}</div>
-            </div>
-            <div class="table-row">
               <div class="table-cell label">Kohtumispaik</div>
               <div class="table-cell value">{{ hike.meetupPoint }}</div>
             </div>
@@ -61,7 +57,7 @@
                 <button
                     class="btn btn-warning update-btn"
                     @click="showPlannedChecklist = !showPlannedChecklist"
-                    >
+                >
                   Lisa
                 </button>
 
@@ -77,21 +73,31 @@
                   Salvesta
                 </button>
               </div>
+
             </div>
+
+            <DeleteHikeButton
+                :hikeId="hike.id"/>
+            <ChangeHikeButton :hike-id="hike.id"/>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useHikeStore } from "@/store/hikeStore";
+import {ref, onMounted} from 'vue';
+import {useHikeStore} from "@/store/hikeStore";
 import axios from "axios";
 import PlannedChecklist from "@/components/PlannedChecklist.vue";
+import DeleteHikeButton from "@/components/DeleteHikeButton.vue";
+import ChangeHikeButton from "@/components/ChangeHikeButton.vue";
 
 const store = useHikeStore();
 const showPlannedChecklist = ref(false);
+
 
 const toggleChecklistItem = async (item) => {
   try {
@@ -110,13 +116,14 @@ const toggleChecklistItem = async (item) => {
 
 const deleteChecklistItem = async (itemId, hikeId) => {
   try {
-    await axios.delete(`http://localhost:8089/api/matk/delete-items/${itemId}`);
+    await axios.delete(`${this.api}/delete-items/${itemId}`);
     await store.fetchChecklist(hikeId);
   } catch (error) {
     console.error('Viga kustutamisel:', error);
     // Add error handling, perhaps a toast notification
   }
 };
+
 async function handleButtonClick(hikeId) {
   try {
     await store.saveChecklist(hikeId); // Save checklist
@@ -258,18 +265,56 @@ onMounted(() => {
   color: white;
   border: none;
 }
+
 .btn-warning {
   background-color: #4CAF50; /* Green background */
   border-color: #45a049; /* Green border */
   color: white; /* White text */
   font-size: 16px; /* Larger text */
   padding: 10px 20px; /* Add padding */
-/*  border-radius: 8px; !* Rounded corners *!*/
+  /*  border-radius: 8px; !* Rounded corners *!*/
 }
+
 .btn-warning:hover {
   background-color: darkgreen; /* Darker orange on hover */
 }
+
 .delete-btn {
   margin-left: 10px;
 }
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; /* Set a smaller width */
+  background: white;
+  padding: 20px;
+  z-index: 1000;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for better appearance */
+  display: block;
+  text-align: center; /* Center-align text */
+  max-height: 200px; /* Limit the height of the modal */
+  overflow: auto; /* Add scrolling if the content exceeds the max height */
+}
+
+.modal p {
+  margin-bottom: 15px; /* Add spacing between text and buttons */
+}
+
+.modal button {
+  margin: 5px; /* Add spacing between buttons */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Slightly dark background to focus on the modal */
+  z-index: 999;
+}
+
 </style>

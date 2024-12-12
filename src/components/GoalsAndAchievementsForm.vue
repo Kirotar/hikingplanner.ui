@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="form-container mt-4">
-    <h3>Lisa uus saavutus</h3>
-    <form @submit.prevent="addAchievement">
+  <div id="App" class="form-container mt-4">
+    <h3>Lisa uus saavutus ja loodusvaatlused</h3>
+    <form @submit.prevent="handleSubmit">
       <!-- Hiking Trail Dropdown -->
       <div id="app" class="form-group mb-2">
         <label for="trailDropdown">Vali Matkarada:</label>
@@ -13,104 +13,85 @@
         </select>
       </div>
 
-      <!-- Hike Type Dropdown with Checkbox -->
-      <div id="app" class="form-group mb-2">
-        <button type="button" class="btn green-btn" @click="toggleDropdown('hikeType')">
-          Vali Matka Tüüp
-        </button>
-        <div v-if="dropdowns.hikeType" class="dropdown-checkbox">
-          <div v-for="hikeType in hikeTypes" :key="hikeType.id">
-            <input type="checkbox" :value="hikeType.id" v-model="newAchievement.typeOfHikeIds" />
-            <span>{{ hikeType.typeOfHikeName }}</span>
+      <!-- Achievements Icon -->
+      <div class="icon-container">
+        <i class="fa fa-map-marker-alt icon" @click="toggleDropdown('achievement')"></i>
+        <span>Saavutus</span>
+        <div v-if="dropdowns.achievement" class="dropdown-checkbox">
+          <div v-for="achievement in achievements" :key="achievement.id" class="checkbox-item">
+            <input
+                type="checkbox"
+                :value="achievement.id"
+                v-model="newAchievement.achievementsIds"
+            />
+            <span>{{ achievement.achievementName }}</span>
           </div>
         </div>
       </div>
 
-      <!-- Landmark Dropdown with Checkbox -->
-      <div id="app" class="form-group mb-2">
-        <button type="button" class="btn green-btn" @click="toggleDropdown('landmark')">
-          Vali Maamärk
-        </button>
-        <div v-if="dropdowns.landmark" class="dropdown-checkbox">
-          <div v-for="landmark in landmarks" :key="landmark.id">
-            <input type="checkbox" :value="landmark.id" v-model="newAchievement.landmarkIds" />
-            <span>{{ landmark.landmarkName }}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Animal Dropdown with Checkbox -->
-      <div id="app" class="form-group mb-2">
-        <button type="button" class="btn green-btn" @click="toggleDropdown('animal')">
-          Vali Loom
-        </button>
+      <!-- Animal Icon -->
+      <div class="icon-container">
+        <i class="fa fa-paw icon" @click="toggleDropdown('animal')"></i>
+        <span>Loomad</span>
         <div v-if="dropdowns.animal" class="dropdown-checkbox">
-          <div v-for="animal in animals" :key="animal.id">
-            <input type="checkbox" :value="animal.id" v-model="newAchievement.animalIds" />
+          <div v-for="animal in animals" :key="animal.id" class="checkbox-item">
+            <input
+                type="checkbox"
+                :value="animal.id"
+                v-model="newAchievement.animalType"
+            />
             <span>{{ animal.animalName }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Birds Icon -->
+      <div class="icon-container">
+        <i class="fa fa-feather-alt icon" @click="toggleDropdown('bird')"></i>
+        <span>Linnud</span>
+        <div v-if="dropdowns.bird" class="dropdown-checkbox">
+          <div v-for="bird in birds" :key="bird.id" class="checkbox-item">
+            <input
+                type="checkbox"
+                :value="bird.id"
+                v-model="newAchievement.birdType"
+            />
+            <span>{{ bird.animalName }}</span>
           </div>
         </div>
       </div>
 
       <!-- Submit Button -->
       <div id="app">
-        <button type="submit" class="btn green-btn mt-3">Salvesta Saavutus</button>
+        <button type="submit" class="btn green-btn mt-3">
+          <i class="fa fa-save"></i> Salvesta
+        </button>
       </div>
     </form>
-
-    <!-- Toggle Achievements Table -->
-    <div id= "app" class="mt-4">
-      <button @click="toggleAchievementsTable" class="btn green-btn">
-        {{ showAchievementsTable ? "Peida Saavutused" : "Vaata enda saavutusi" }}
-      </button>
-      <div v-if="showAchievementsTable" class="mt-3">
-        <h2>Saavutuste Tabel</h2>
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>Matkarada</th>
-            <th>Matka Tüübid</th>
-            <th>Maamärgid</th>
-            <th>Loomad</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="achievement in achievements" :key="achievement.id">
-            <td>{{ achievement.hikeName || '' }}</td>
-            <td>{{ achievement.hikeTypeNames.join(", ") || '' }}</td>
-            <td>{{ achievement.landmarkNames.join(", ") || '' }}</td>
-            <td>{{ achievement.animalNames.join(", ") || '' }}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { useHikeStore } from "@/store/hikeStore";
+import {useHikeStore} from "@/store/hikeStore";
 
 export default {
   data() {
     return {
-      apiBase: "http://localhost:8089/api/achievements",
-      hikeTypes: [],
-      landmarks: [],
+      api: "http://localhost:8089/api/matk",
       animals: [],
+      birds: [],
       achievements: [],
-      showAchievementsTable: false, // Kontrollib tabeli nähtavust
       dropdowns: {
-        hikeType: false,
-        landmark: false,
+        achievement: false,
         animal: false,
+        bird: false,
       },
       newAchievement: {
         hikeId: "",
-        typeOfHikeIds: [],
-        landmarkIds: [],
-        animalIds: [],
+        achievementsIds: [],
+        animalType: [],
+        birdType: [],
       },
     };
   },
@@ -124,202 +105,189 @@ export default {
     toggleDropdown(type) {
       this.dropdowns[type] = !this.dropdowns[type];
     },
-    toggleAchievementsTable() {
-      this.showAchievementsTable = !this.showAchievementsTable;
-      if (this.showAchievementsTable) {
-        this.fetchAchievements(); // Laadi saavutused, kui tabel kuvatakse
-      }
-    },
-    fetchHikeTypes() {
+    fetchAnimalsAndBirds() {
       axios
-          .get(`${this.apiBase}/get-all-hike-types`)
+          .get(`${this.api}/get-all-animals`)
           .then((res) => {
-            this.hikeTypes = res.data;
+            this.animals = res.data.filter((item) => item.category === "animal");
+            this.birds = res.data.filter((item) => item.category === "bird");
           })
           .catch((err) => {
-            console.error("Viga matkatüüpide laadimisel:", err);
-          });
-    },
-    fetchLandmarks() {
-      axios
-          .get(`${this.apiBase}/get-all-landmarks`)
-          .then((res) => {
-            this.landmarks = res.data;
-          })
-          .catch((err) => {
-            console.error("Viga maamärkide laadimisel:", err);
-          });
-    },
-    fetchAnimals() {
-      axios
-          .get(`${this.apiBase}/get-all-animals`)
-          .then((res) => {
-            this.animals = res.data;
-          })
-          .catch((err) => {
-            console.error("Viga loomade laadimisel:", err);
+            console.error("Viga loomade ja lindude laadimisel:", err);
           });
     },
     fetchAchievements() {
       axios
-          .get(`${this.apiBase}/get-all-user-achievements`)
+          .get(`${this.api}/get-all-achievements`)
           .then((res) => {
-            this.achievements = res.data.map((achievement) => ({
-              ...achievement,
-              hikeTypeNames: achievement.hikeTypeNames || [],
-              landmarkNames: achievement.landmarkNames || [],
-              animalNames: achievement.animalNames || [],
-            }));
+            console.log("Laetud saavutused:", res.data); // Kontrolli siit
+            this.achievements = res.data;
           })
           .catch((err) => {
             console.error("Viga saavutuste laadimisel:", err);
           });
     },
-    addAchievement() {
+
+    handleSubmit() {
       if (!this.newAchievement.hikeId) {
-        alert("Vali matkarada!");
+        alert("Palun vali matkarada.");
         return;
       }
 
+      // Salvesta saavutused
+      if (this.newAchievement.achievementsIds.length > 0) {
+        this.saveAchievements(this.newAchievement.hikeId, this.newAchievement.achievementsIds);
+      }
+
+      // Salvesta loodusvaatlused
+      if (this.newAchievement.animalType.length > 0 || this.newAchievement.birdType.length > 0) {
+        this.saveWildlifeSightings(this.newAchievement.animalType, this.newAchievement.birdType);
+      }
+
+
+      // Vorm lähtestatakse
+      this.resetForm();
+    },
+
+    saveAchievements(hikeId, selectedAchievementIds) {
       axios
-          .post(`${this.apiBase}/save-achievement`, this.newAchievement)
-          .then(() => {
-            alert("Saavutus edukalt lisatud!");
-            this.resetForm();
-            if (this.showAchievementsTable) {
-              this.fetchAchievements(); // Värskenda tabelit, kui see on avatud
-            }
+          .post(`${this.api}/${hikeId}/save-achievement`, selectedAchievementIds)
+          .then((response) => {
+            console.log("Successfully saved achievements:", response.data);
+            alert("Achievements saved successfully!");
           })
-          .catch((err) => {
-            console.error("Viga saavutuse salvestamisel:", err);
-            alert("Viga saavutuse salvestamisel. Proovi uuesti.");
+          .catch((error) => {
+            console.error("Error saving achievements:", error);
+            alert("Failed to save achievements.");
           });
     },
+
+    saveWildlifeSightings(hikeId,) {
+      axios
+          .post(`${this.api}/${hikeId}/save-wildlife-sightings`, null, {
+            params: {
+              animalType: [],
+              birdType: [],
+            },
+          })
+      .then((response) => {
+        console.log("Successfully saved wildlife sightings:", response.data);
+        alert("Wildlife sightings saved successfully!");
+      })
+          .catch((error) => {
+            console.error("Error saving wildlife sightings:", error);
+            alert("Failed to save wildlife sightings.");
+          });
+    },
+
     resetForm() {
       this.newAchievement = {
         hikeId: "",
-        typeOfHikeIds: [],
-        landmarkIds: [],
+        achievementsIds: [],
         animalIds: [],
       };
     },
   },
   mounted() {
-    this.fetchHikeTypes();
-    this.fetchLandmarks();
-    this.fetchAnimals();
+    this.fetchAnimalsAndBirds();
+    this.fetchAchievements();
   },
 };
 </script>
 
 <style>
-/* Vormide stiilid */
-.form-group {
-  margin-bottom: 1rem;
+/* Üldine vormi konteiner */
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
+/* Icon container */
+.icon-dropdowns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.icon-container span {
+  margin-top: 5px;
+  font-size: 1rem;
   color: #333;
 }
 
-.form-control {
-  width: 100%;
-  max-width: 500px;
-  padding: 10px;
+.icon {
+  font-size: 40px;
+  color: #4caf50;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.icon:hover {
+  color: #45a049;
+  transform: scale(1.1);
+}
+
+
+.dropdown-checkbox {
+  background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 1rem;
+  padding: 10px;
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  top: 60px; /* Position the dropdown below the icon */
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
-  transition: border-color 0.2s ease;
 }
 
-.form-control:focus {
-  outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+.checkbox-item input {
+  margin-right: 10px;
 }
 
+.checkbox-item span {
+  font-size: 0.9rem;
+}
+
+/* Submit Button */
 button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .green-btn {
   background-color: #4caf50;
   color: white;
-  border: none;
-  padding: 10px 15px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.2s ease;
 }
 
 .green-btn:hover {
   background-color: #45a049;
 }
 
-.mt-3 {
-  margin-top: 1rem;
-}
-
-/* Tabeli stiilid */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  font-size: 1rem;
-  text-align: left;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
-}
-
-.table th,
-.table td {
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-}
-
-.table th {
-  background-color: #4caf50;
-  color: white;
-  font-weight: bold;
-}
-
-.table td {
-  background-color: #f9f9f9;
-}
-
-.table tbody tr:nth-child(even) td {
-  background-color: #f2f2f2;
-}
-
-.table tbody tr:hover td {
-  background-color: #e9ffe9;
-}
-
-.achievements-container {
-  padding: 20px;
-  max-width: 100%;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-  text-align: left; }
-
-  /* Dropdown styles */
-  .dropdown-checkbox {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 5px;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-
-  .dropdown-checkbox div {
-    margin-bottom: 5px;
-}
 </style>

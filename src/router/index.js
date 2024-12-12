@@ -22,7 +22,11 @@ const routes = [
         name: 'Lemmikud',
         component: FavoriteHikes,
     },
-
+    {
+        path: '/goals',
+        name: 'Saavutused ja eesmärgid',
+        component: "",
+    },
     {
         path: '/',
         name: '',

@@ -3,6 +3,7 @@ import PastHikes from '@/views/PastHikes.vue';
 import PlannedHikes from '@/views/PlannedHikes.vue';
 import FavoriteHikes from "@/views/FavoriteHikes.vue";
 import FrontPage from "@/views/FrontPage.vue";
+import AchievementsPage from "@/views/AchievementsPage.vue";
 
 
 const routes = [
@@ -27,6 +28,11 @@ const routes = [
         path: '/',
         name: '',
         component: FrontPage,
+    },
+    {
+        path: '/saavutused',
+        name: 'Saavutused ja eesmärgid',
+        component: AchievementsPage,
     }
 ];
 

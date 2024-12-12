@@ -10,7 +10,8 @@
           <li><router-link to="/planned">PLANEERITUD MATKAD</router-link></li>
           <li><router-link to="/finished">TEHTUD MATKAD</router-link></li>
           <li><router-link to="/favorites">LEMMIKUD</router-link></li>
-          <li><router-link to="/goals">SAAVUTUSED & EESMÄRGID</router-link></li>
+          <li><router-link to="/saavutused">SAAVUTUSED & EESMÄRGID</router-link></li>
+          <li><router-link to="/">KAART</router-link></li>
         </ul>
       </nav>
     </header>

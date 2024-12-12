@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <h3>Planeeri uus matk</h3>
-    <form @submit.prevent="store.addHikeWithChecklist()" class="planned-form">
-      <div class="form-group mb-2">
-        <label for="trailDropdown">Matkaraja valik:</label>
+  <div class="container mt-4 rounded-5 custom-bg">
+    <form @submit.prevent="store.addHikeWithChecklist()" class="planned-form mb-3">
+      <div class="form-group mb-3">
+        <label for="trailDropdown" class="form-label"></label>
         <select
             id="trailDropdown"
             class="form-control"
             v-model="selectedTrail"
             @change="store.selectTrail(selectedTrail)"
+            required
         >
           <option disabled value="">Vali matkarada</option>
           <option v-for="trail in store.hikingTrails" :key="trail.id" :value="trail">
@@ -16,62 +16,65 @@
           </option>
         </select>
       </div>
-      <input
-          type="text"
-          v-model="store.newHike.trailName"
-          placeholder="Matkarada"
-          class="form-control"
-          readonly
-      />
-      <input
-          type="text"
-          v-model="store.newHike.meetupPoint"
-          placeholder="Kohtumispaik"
-          class="form-control"
-          required
-      />
-      <input type="date" v-model="store.newHike.startDate" class="form-control" required />
 
-      <PlannedChecklist/>
+      <div class="form-group mb-3">
+        <input
+            type="text"
+            v-model="store.newHike.trailName"
+            placeholder="Matkarada"
+            class="form-control"
+            readonly
+        />
+      </div>
 
-      <br>
-      <div>
-        <button class="btn btn-success w-50 btn-lg">Lisa matk</button>
+      <div class="form-group mb-3">
+        <input
+            type="text"
+            v-model="store.newHike.meetupPoint"
+            placeholder="Kohtumispaik"
+            class="form-control"
+            required
+        />
+      </div>
+
+      <div class="form-group mb-3">
+        <input
+            type="date"
+            v-model="store.newHike.startDate"
+            class="form-control"
+            required
+        />
+      </div>
+
+      <PlannedChecklist />
+
+      <div class="text-center">
+        <button class="btn green-btn btn-lg mt-3">Lisa matk</button>
       </div>
     </form>
   </div>
 </template>
-
 <script>
-import {useHikeStore} from "@/store/hikeStore";
+import { useHikeStore } from "@/store/hikeStore";
 import PlannedChecklist from "@/components/PlannedChecklist.vue";
 
 export default {
-  components: {PlannedChecklist},
+  components: { PlannedChecklist },
   setup() {
     const store = useHikeStore();
     store.fetchTrails();
 
-    let selectedTrail = null;
+    let selectedTrail = ""; // Ensure this is initialized to match the placeholder value
+
     const addHike = async () => {
       await store.addHike();
     };
-    return {store, selectedTrail, addHike};
+
+    return { store, selectedTrail, addHike };
   },
-}
+};
 </script>
 
+<style>
 
-<style scoped>
-/* kontrollib matkaraja valik: kastikesi*/
-.form-control {
-  width: 200%;
-  max-width: 500px;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  align-items: center;
-}
 </style>

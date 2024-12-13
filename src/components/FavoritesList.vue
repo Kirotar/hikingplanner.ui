@@ -1,4 +1,5 @@
 <template>
+
   <div class="trail-list">
     <div
         v-for="trail in store.hikingTrails"

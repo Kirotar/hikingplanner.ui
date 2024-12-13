@@ -119,6 +119,7 @@ export const useHikeStore = defineStore('hikeStore', {
                 }
             },
 
+
             async fetchChecklist(hikeId = null) {
                 console.log("Fetched")
                 try {

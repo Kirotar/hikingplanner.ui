@@ -6,6 +6,7 @@ import FrontPage from "@/views/FrontPage.vue";
 import AchievementsPage from "@/views/AchievementsPage.vue";
 
 
+
 const routes = [
     {
         path: '/finished',

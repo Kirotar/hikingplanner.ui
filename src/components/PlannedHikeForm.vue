@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <h3>Planeeri uus matk</h3>
     <form @submit.prevent="store.addHikeWithChecklist()" class="planned-form">

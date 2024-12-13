@@ -104,6 +104,7 @@
             :style="{ opacity: distanceAchieved > 10000 ? 1 : 0.5 }"
             alt="Matkaja ikoon"
 
+
         />
         <label for="hike-tenthousand">10 000 kilomeetrit läbitud!</label>
       </div>

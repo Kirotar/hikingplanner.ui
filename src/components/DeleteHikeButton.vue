@@ -1,5 +1,6 @@
 
 <template>
+
   <div>
     <button class="btn btn-danger" @click="confirmDeleteHike">
       Kustuta matk

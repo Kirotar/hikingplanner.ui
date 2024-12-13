@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div v-if="store.isVisible">
       <div v-for="hike in store.hikes" :key="hike.id" class="hike-info">

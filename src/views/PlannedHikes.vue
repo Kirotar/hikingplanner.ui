@@ -44,7 +44,7 @@ export default {
   width: 100%; /* Full width */
   max-width: 520px; /* Adjust based on your design */
   margin: 0 auto;
-  padding: 0px; /* Add padding if needed */
+  padding: 0; /* Add padding if needed */
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }

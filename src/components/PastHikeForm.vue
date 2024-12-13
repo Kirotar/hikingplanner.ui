@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4 rounded-5 custom-bg">
+   <div class="container mt-4 rounded-5 custom-bg">
     <!-- Start of white background container -->
     <div class="form-container">
       <form @submit.prevent="store.addHike" class="mb-3">

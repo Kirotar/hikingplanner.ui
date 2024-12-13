@@ -1,5 +1,4 @@
 <template>
-
   <div id="app" class="dropdown text-center mb-4" >
     <button class="dropbtn btn btn-success" @click="dropdownVisibility = !dropdownVisibility"
     >Vali matkarada</button>
@@ -65,6 +64,14 @@ export default {
 .dropdown {
   position: relative;
   display: inline-block;
+}
+
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
 }
 
 .dropdown-content {

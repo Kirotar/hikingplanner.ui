@@ -33,49 +33,66 @@
       />
       <input type="date" v-model="store.newHike.startDate" class="form-control" required />
 
-      <PlannedChecklist/>
-
-      <br>
-      <div>
-        <button class="btn btn-success w-50 btn-lg">Lisa matk</button>
-      </div>
-    </form>
+        <PlannedChecklist />
+        <br>
+        <div class="text-center">
+          <button class="btn green-btn mt-3 btn-lg">Lisa matk</button>
+        </div>
+      </form>
+    </div>
+    <!-- End of white background container -->
   </div>
 </template>
 
 <script>
-import {useHikeStore} from "@/store/hikeStore";
+import { useHikeStore } from "@/store/hikeStore";
 import PlannedChecklist from "@/components/PlannedChecklist.vue";
 
 export default {
-  components: {PlannedChecklist},
+  components: { PlannedChecklist },
   setup() {
     const store = useHikeStore();
     store.fetchTrails();
 
-    let selectedTrail = null;
+    let selectedTrail = ""; // Ensure this is initialized to match the placeholder value
+
     const addHike = async () => {
       await store.addHike();
     };
-    return {store, selectedTrail, addHike};
+
+    return { store, selectedTrail, addHike };
   },
-}
+};
 </script>
 
+<style>
+/* Match the styles from the first example */
+.form-container {
+  max-width: 10000px; /* Adjust width for consistency */
+  background-color: rgba(255, 255, 255, 0.7); /* White background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
 
-<style scoped>
+/* Button Styling */
 .green-btn {
   background-color: #4caf50;
   color: white;
-  border: none;
   padding: 10px 20px;
   font-size: 1rem;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .green-btn:hover {
-  background-color: #45a049;
+  background-color: #56a045;
 }
 
+.btn-lg {
+  font-size: 1.25rem; /* Make the button slightly larger */
+  padding: 12px 24px;
+}
 </style>

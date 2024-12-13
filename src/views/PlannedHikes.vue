@@ -70,7 +70,6 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
-
 .green-btn:hover {
   background-color: #45a049;
 }

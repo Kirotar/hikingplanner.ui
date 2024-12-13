@@ -78,49 +78,49 @@ html, body {
   align-items: start;
 }
 
-/* Taustapilt */
-.background-image {
-  position: fixed; /* Püsib alati paigal */
-  top: 0;
-  left: 0;
-  width: 100vw; /* Katab akna laiuse */
-  height: 100vh; /* Katab akna kõrguse */
-  background-image: url('@/assets/path-1356948_1280.jpg'); /* Õige failitee */
-  background-size: cover; /* Katab kogu ala proportsionaalselt */
-  background-position: center; /* Keskendab tausta */
-  background-attachment: fixed; /* Taust jääb paigale */
-  opacity: 0.6; /* Läbipaistvus */
-  z-index: -1; /* Tagab, et see jääb sisu taha */
-}
+  /* Taustapilt */
+  .background-image {
+    position: fixed; /* Püsib alati paigal */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Katab akna laiuse */
+    height: 100vh; /* Katab akna kõrguse */
+    background-image: url('@/assets/path-1356948_1280.jpg'); /* Õige failitee */
+    background-size: cover; /* Katab kogu ala proportsionaalselt */
+    background-position: center; /* Keskendab tausta */
+    background-attachment: fixed; /* Taust jääb paigale */
+    opacity: 0.6; /* Läbipaistvus */
+    z-index: -1; /* Tagab, et see jääb sisu taha */
+  }
 
-/* Rakenduse peasisu */
-#app {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  text-align: center; /* Joondab teksti keskele */
-  align-items: center; /* Joondab kõik elemendid keskele */
-  padding: 20px;
-}
+  /* Rakenduse peasisu */
+  #app {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center; /* Joondab teksti keskele */
+    align-items: center; /* Joondab kõik elemendid keskele */
+    padding: 20px;
+  }
 
-/* Päise stiilid */
-header {
-  width: 100%;
-  padding: 15px 20px;
-  background: linear-gradient(
-      90deg,
-      rgba(77, 133, 129, 1) 0%,
-      rgba(6, 76, 19, 1) 19%,
-      rgba(74, 158, 27, 1) 42%,
-      rgba(0, 212, 255, 0) 93%
-  );
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column; /* Asetab pealkirja ja menüü üksteise alla */
-  align-items: center; /* Joondab keskele */
-  gap: 10px; /* Vahe pealkirja ja menüü vahel */
-}
+  /* Päise stiilid */
+  header {
+    width: 100%;
+    padding: 15px 20px;
+    background: linear-gradient(
+        90deg,
+        rgba(77, 133, 129, 1) 0%,
+        rgba(6, 76, 19, 1) 19%,
+        rgba(74, 158, 27, 1) 42%,
+        rgba(0, 212, 255, 0) 93%
+    );
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column; /* Asetab pealkirja ja menüü üksteise alla */
+    align-items: center; /* Joondab keskele */
+    gap: 10px; /* Vahe pealkirja ja menüü vahel */
+  }
 
 /* Pealkiri */
 header h1 {
@@ -139,34 +139,34 @@ header h1 {
   font-size: inherit; /* Use the font size of the <h1> */
 }
 
-.logo-link h1 {
-  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
-}
-/* Navigatsioon */
-nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: center; /* Menüü joondus keskele */
-  gap: 15px; /* Vahe elementide vahel */
-}
+  .logo-link h1 {
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  }
+  /* Navigatsioon */
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Menüü joondus keskele */
+    gap: 15px; /* Vahe elementide vahel */
+  }
 
-nav li {
-  margin: 0;
-}
+  nav li {
+    margin: 0;
+  }
 
-nav a {
-  text-decoration: none;
-  color: #faebd7;
-  font-size: 1rem; /* Natuke suurem font suurus */
-  font-weight: 500; /* Veidi paksem, et muuta nähtavamaks */
-  padding: 5px 10px;
-}
+  nav a {
+    text-decoration: none;
+    color: #faebd7;
+    font-size: 1rem; /* Natuke suurem font suurus */
+    font-weight: 500; /* Veidi paksem, et muuta nähtavamaks */
+    padding: 5px 10px;
+  }
 
-nav a:hover {
-  text-decoration: underline;
-}
+  nav a:hover {
+    text-decoration: underline;
+  }
 
 /* Tekstistiilid */
 h1, h2, h3, h4, h5 {
@@ -197,5 +197,13 @@ h1, h2, h3, h4, h5 {
   font-size: 18px;
   color: #888;
 }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px; /* Ikooni kaugus vasakust servast */
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #888;
+  }
 
 </style>

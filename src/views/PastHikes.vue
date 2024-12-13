@@ -1,13 +1,12 @@
 <template>
   <div id="App">
     <h1>Tehtud matkad</h1>
-    <br>
     <!-- Dropdown to select trail -->
     <Dropdown/>
-    <br>
     <!-- Add Hike form -->
     <PastHikeForm/>
     <!-- Button to fetch hikes -->
+    <br>
     <div id="App">
       <button @click="store.fetchHikesAndToggle" class="btn green-btn">Tehtud matkad</button>
     </div>

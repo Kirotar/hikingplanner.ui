@@ -24,17 +24,12 @@ const routes = [
         component: FavoriteHikes,
     },
     {
-        path: '/goals',
-        name: 'Saavutused ja eesmärgid',
-        component: "",
-    },
-    {
         path: '/',
         name: '',
         component: FrontPage,
     },
     {
-        path: '/saavutused',
+        path: '/goals',
         name: 'Saavutused ja eesmärgid',
         component: AchievementsPage,
     }

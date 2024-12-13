@@ -1,117 +1,103 @@
 <template>
   <div class="container mt-4 rounded-5 custom-bg">
-    <form @submit.prevent="store.addHike" class="mb-3">
-      <div class="form-group mb-3">
-        <input
-            v-model="store.newHike.trailName"
-            placeholder="Matkarada"
-            class="form-control"
-            required
-            readonly
-        />
-      </div>
-      <div class="form-group mb-3">
-        <input
-            v-model="store.newHike.notes"
-            placeholder="Märkmed"
-            class="form-control"
-        />
-      </div>
-      <div class="form-group mb-3">
-        <input
-            v-model="store.newHike.duration"
-            type="time"
-            class="form-control"
-        />
-      </div>
-      <div class="form-group mb-3">
-        <input
-            type="date"
-            v-model="store.newHike.startDate"
-            class="form-control"
-            required
-        />
-      </div>
-      <div class="form-group mb-3">
-        <input
-            type="date"
-            v-model="store.newHike.endDate"
-            class="form-control"
-            required
-        />
-      </div>
-
-      <div id="App" class="form-container mt-4">
-        <h3>Lisa uus saavutus ja loom/lind, keda matkal nägid</h3>
-        <form @submit.prevent="handleSubmit">
-          <!-- Hiking Trail Dropdown -->
-          <div id="app" class="form-group mb-2">
-            <label for="trailDropdown">Vali Matkarada:</label>
-            <select id="trailDropdown" class="form-control" v-model="newAchievement.hikeId">
-              <option disabled value="">Vali matkarada</option>
-              <option v-for="trail in trails" :key="trail.id" :value="trail.id">
-                {{ trail.name }}
-              </option>
-            </select>
-          </div>
-          <!-- Achievements Icon -->
+    <!-- Start of white background container -->
+    <div class="form-container">
+      <form @submit.prevent="store.addHike" class="mb-3">
+        <div class="form-group mb-3">
+          <input
+              v-model="store.newHike.trailName"
+              placeholder="Matkarada"
+              class="form-control"
+              required
+              readonly
+          />
+        </div>
+        <div class="form-group mb-3">
+          <input
+              v-model="store.newHike.notes"
+              placeholder="Märkmed"
+              class="form-control"
+          />
+        </div>
+        <div class="form-group mb-3">
+          <input
+              v-model="store.newHike.duration"
+              type="time"
+              class="form-control"
+          />
+        </div>
+        <div class="form-group mb-3">
+          <input
+              type="date"
+              v-model="store.newHike.startDate"
+              class="form-control"
+              required
+          />
+        </div>
+        <div class="form-group mb-3">
+          <input
+              type="date"
+              v-model="store.newHike.endDate"
+              class="form-control"
+              required
+          />
+        </div>
+        <br>
+        <h4>Lisa uus saavutus ja loom/lind, keda matkal nägid: </h4>
+        <br>
+        <!-- Dropdown -->
+        <div class="form-group mb-2">
+          <select
+              id="trailDropdown"
+              class="form-control"
+              v-model="newAchievement.hikeId"
+          >
+            <option disabled value="">Vali matkarada</option>
+            <option
+                v-for="trail in trails"
+                :key="trail.id"
+                :value="trail.id"
+            >
+              {{ trail.name }}
+            </option>
+          </select>
+        </div>
+        <br>
+        <!-- Icons -->
+        <div class="icon-row">
           <div class="icon-container">
-            <i class="fa fa-map-marker-alt icon" @click="toggleDropdown('achievement')"></i>
+            <i
+                class="fa fa-trophy icon"
+                @click="toggleDropdown('achievement')"
+            ></i>
             <span>Saavutus</span>
-            <div v-if="dropdowns.achievement" class="dropdown-checkbox">
-              <div v-for="achievement in achievements" :key="achievement.id" class="checkbox-item">
-                <input
-                    type="checkbox"
-                    :value="achievement.id"
-                    v-model="newAchievement.achievementsIds"
-                />
-                <span>{{ achievement.achievementName }}</span>
-              </div>
-            </div>
           </div>
-
-          <!-- Animal Icon -->
           <div class="icon-container">
-            <i class="fa fa-paw icon" @click="toggleDropdown('animal')"></i>
+            <i
+                class="fa fa-paw icon"
+                @click="toggleDropdown('animal')"
+            ></i>
             <span>Loomad</span>
-            <div v-if="dropdowns.animal" class="dropdown-checkbox">
-              <div v-for="animal in animals" :key="animal.id" class="checkbox-item">
-                <input
-                    type="checkbox"
-                    :value="animal.id"
-                    v-model="newAchievement.animalType"
-                />
-                <span>{{ animal.animalName }}</span>
-              </div>
-            </div>
           </div>
-
-          <!-- Birds Icon -->
           <div class="icon-container">
-            <i class="fa fa-feather-alt icon" @click="toggleDropdown('bird')"></i>
+            <i
+                class="fa fa-feather-alt icon"
+                @click="toggleDropdown('bird')"
+            ></i>
             <span>Linnud</span>
-            <div v-if="dropdowns.bird" class="dropdown-checkbox">
-              <div v-for="bird in birds" :key="bird.id" class="checkbox-item">
-                <input
-                    type="checkbox"
-                    :value="bird.id"
-                    v-model="newAchievement.birdType"
-                />
-                <span>{{ bird.animalName }}</span>
-              </div>
-            </div>
           </div>
-          <div id="app">
-            <button type="submit" class="btn green-btn mt-3">
-              <i class="fa fa-save"></i> Salvesta
-            </button>
-          </div>
-        </form>>
-      </div>
-      <div>
-        <button class="btn btn-success btn-lg">Lisa matk</button>
-      </div>
-    </form>
+        </div>
+        <button type="submit" class="btn green-btn mt-3">
+          <i class="fa fa-save"></i> Salvesta
+        </button>
+        <br>
+        <br>
+        <div>
+          <button class="btnpast">Lisa matk</button>
+        </div>
+      </form>
+    </div>
+    <!-- End of white background container -->
   </div>
 </template>
 
@@ -120,6 +106,7 @@
 import axios from "axios";
 import {useHikeStore} from "@/store/hikeStore";
 
+
 export default {
   setup() {
     const store = useHikeStore();
@@ -127,7 +114,7 @@ export default {
   },
   data() {
     return {
-      api: "http://localhost:8089/api/matk",
+      api: "http://localhost:8091/api/matk",
       animals: [],
       birds: [],
       achievements: [],
@@ -177,16 +164,19 @@ export default {
           });
     },
 
+
     handleSubmit() {
       if (!this.newAchievement.hikeId) {
         alert("Palun vali matkarada.");
         return;
       }
 
+
       // Salvesta saavutused
       if (this.newAchievement.achievementsIds.length > 0) {
         this.saveAchievements(this.newAchievement.hikeId, this.newAchievement.achievementsIds);
       }
+
 
       // Salvesta loodusvaatlused
       if (this.newAchievement.animalType.length > 0 || this.newAchievement.birdType.length > 0) {
@@ -194,9 +184,12 @@ export default {
       }
 
 
+
+
       // Vorm lähtestatakse
       this.resetForm();
     },
+
 
     saveAchievements(hikeId, selectedAchievementIds) {
       axios
@@ -211,14 +204,15 @@ export default {
           });
     },
 
-    saveWildlifeSightings(hikeId,) {
+
+    saveWildlifeSightings(hikeId) {
+
+
+      const params = new URLSearchParams();
+      this.newAchievement.animalType.forEach((id) => params.append('animalType', id));
+      this.newAchievement.birdType.forEach((id) => params.append('birdType', id));
       axios
-          .post(`${this.api}/${hikeId}/save-wildlife-sightings`, null, {
-            params: {
-              animalType: [],
-              birdType: [],
-            },
-          })
+          .post(`${this.api}/${hikeId}/save-wildlife-sightings?${params.toString()}`)
           .then((response) => {
             console.log("Successfully saved wildlife sightings:", response.data);
             alert("Wildlife sightings saved successfully!");
@@ -228,6 +222,7 @@ export default {
             alert("Failed to save wildlife sightings.");
           });
     },
+
 
     resetForm() {
       this.newAchievement = {
@@ -243,14 +238,17 @@ export default {
   },
 
 
+
+
 };</script>
+
 
 <style>
 /* Üldine vormi konteiner */
 .form-container {
-  max-width: 700px;
+  max-width: 800px; /* Adjust width as needed */
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.7); /* White background */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -264,6 +262,7 @@ export default {
   margin-top: 20px;
 }
 
+
 .icon-container {
   display: flex;
   flex-direction: column;
@@ -272,11 +271,13 @@ export default {
   position: relative;
 }
 
+
 .icon-container span {
   margin-top: 5px;
   font-size: 1rem;
   color: #333;
 }
+
 
 .icon {
   font-size: 40px;
@@ -284,11 +285,11 @@ export default {
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
+
 .icon:hover {
   color: #45a049;
   transform: scale(1.1);
 }
-
 
 .dropdown-checkbox {
   background-color: #f9f9f9;
@@ -304,19 +305,23 @@ export default {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+
 .checkbox-item {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
+
 .checkbox-item input {
   margin-right: 10px;
 }
 
+
 .checkbox-item span {
   font-size: 0.9rem;
 }
+
 
 /* Submit Button */
 button {
@@ -331,13 +336,21 @@ button {
   transition: background-color 0.3s ease;
 }
 
+.btnpast {
+  background-color: rgb(237, 186, 20);
+  display: inline-flex;
+  width: 250px;
+  justify-content: center;
+}
 .green-btn {
   background-color: #4caf50;
   color: white;
 }
 
+
 .green-btn:hover {
-  background-color: #45a049;
+  background-color: #56a045;
 }
+
 
 </style>

@@ -1,9 +1,31 @@
 <template>
   <div class="background-image"></div>
+
+  <div id="search-container">
+    <i class="fa fa-search search-icon"></i>
+    <input
+        type="text"
+        id="search-bar"
+        placeholder="Otsing..."
+        v-model="searchQuery"
+    />
+  </div>
+
+  <div v-for="trail in filteredTrails" :key="trail.id" class="trail-card">
+    <h2>{{ trail.name }}</h2>
+    <p>{{ trail.location }}</p>
+  </div>
+
+  <div v-for="trail in filteredTrails" :key="trail.id" class="trail-card">
+    <div class="trail-details">
+      <h2>{{ trail.name }}</h2>
+      <p>{{ trail.location }}</p>
+    </div>
+  </div>
   <div id="app">
     <header>
       <router-link to="/" class="logo-link" >
-        <h1>Minu matk</h1>
+        <h1>MINU MATK</h1>
       </router-link>
       <nav>
         <ul>
@@ -11,7 +33,6 @@
           <li><router-link to="/finished">TEHTUD MATKAD</router-link></li>
           <li><router-link to="/favorites">LEMMIKUD</router-link></li>
           <li><router-link to="/saavutused">SAAVUTUSED & EESMÄRGID</router-link></li>
-          <li><router-link to="/">KAART</router-link></li>
         </ul>
       </nav>
     </header>
@@ -24,7 +45,21 @@
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+
+  data() {
+    return {
+      searchQuery: '', // Stores the user's search input
+      hikingTrails: [],
+    };
+  },
+  computed: {
+    filteredTrails() {
+      return this.hikingTrails.filter((trail) =>
+          trail.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
+  },
 };
 </script>
 
@@ -88,7 +123,7 @@ header {
 
 /* Pealkiri */
 header h1 {
-  font-family: "Roboto", sans-serif;
+  font-family: "Playfair Display", sans-serif;
   font-optical-sizing: auto;
   color: #faebd7;
   margin: 0;
@@ -134,9 +169,32 @@ nav a:hover {
 
 /* Tekstistiilid */
 h1, h2, h3, h4, h5 {
-  font-family: "Lora", serif;
+  font-family: "Fira Code", serif;
   font-optical-sizing: auto;
-  color: #faebd7;
+  color: #372003;
+}
+#search-container {
+  width: 100%; /* Make sure it spans the entire width */
+  margin: 20px; /* Optional spacing */
+  display: flex;
+  justify-content: flex-end;
+}
+
+#search-bar {
+  width: 100%;
+  max-width: 250px;
+  padding: 3px;
+  font-size: 16px;
+;
+  border-radius: 5px;
+}
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Ikooni kaugus vasakust servast */
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #888;
 }
 
 </style>

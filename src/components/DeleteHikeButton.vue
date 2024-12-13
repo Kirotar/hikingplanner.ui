@@ -34,6 +34,7 @@ const props = defineProps ({
 const store = useHikeStore();
 const showDeleteModal = ref(false); // Modal visibility state
 const selectedHikeId = ref(null); // Selected hike ID for deletion
+const api = "http://localhost:8091/api/matk";
 
 
 const confirmDeleteHike=()=> {
@@ -49,11 +50,12 @@ showDeleteModal.value = true;
 
 const deleteHike = async () => {
   try {
-    await axios.delete(`${this.api}/${selectedHikeId.value}/delete-hike`);
+    await axios.delete(`${api}/${selectedHikeId.value}/delete-hike`);
   } catch (error) {
     console.error(`Error deleting hike ${selectedHikeId.value}:`, error);
   }
   showDeleteModal.value = false;
+  await store.fetchPastHikes()
 };
 </script>
 

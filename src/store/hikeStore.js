@@ -118,19 +118,9 @@ export const useHikeStore = defineStore('hikeStore', {
                     }
                 }
             },
-            toggleDropdownVisibility(hikeId = null) {
-                if (hikeId === null) {
-                    // Toggle visibility of all hikes
-                    this.isDropdownVisible = !this.isDropdownVisible;
-                    if (!this.isDropdownVisible) {
-                        this.visibleHikeId = null; // Reset if hiding all hikes
-                    }
-                } else {
-                    // Toggle visibility of a specific hike
-                    this.visibleHikeId = this.visibleHikeId === hikeId ? null : hikeId;
-                }
-            },
+
             async fetchChecklist(hikeId = null) {
+                console.log("Fetched")
                 try {
                     if (hikeId) {
                         const response = await axios.get(`${this.api}/${hikeId}/checklist`);

@@ -1,14 +1,13 @@
 <template>
-  <div id="app">
+  <div id="App">
     <h1>Tehtud matkad</h1>
-    <br>
     <!-- Dropdown to select trail -->
     <Dropdown/>
-    <br>
     <!-- Add Hike form -->
     <PastHikeForm/>
     <!-- Button to fetch hikes -->
-    <div id="app">
+    <br>
+    <div id="App">
       <button @click="store.fetchHikesAndToggle" class="btn green-btn">Tehtud matkad</button>
     </div>
     <!-- Display list of hikes -->
@@ -17,20 +16,12 @@
   <br>
   <br>
   <br>
-  <div>
-    <h3>Minu saavutused matkal</h3>
-    <br>
-    <br>
-    <GoalsAndAchievementsForm/>
-    <br>
-  </div>
 </template>
 
 <script>
 import Dropdown from "@/components/DropdownMenu.vue";
 import PastHikeForm from "@/components/PastHikeForm.vue";
 import {useHikeStore} from "@/store/hikeStore";
-import GoalsAndAchievementsForm from "@/components/GoalsAndAchievementsForm.vue";
 import PastHikeList from "@/components/PastHikeList.vue";
 
 export default {
@@ -39,7 +30,6 @@ export default {
     return { store };
   },
   components: {
-    GoalsAndAchievementsForm,
     PastHikeList,
     PastHikeForm,
     Dropdown

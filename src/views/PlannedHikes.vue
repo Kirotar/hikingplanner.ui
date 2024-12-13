@@ -1,12 +1,24 @@
 <template>
-  <div id="app" class="planned-container">
+  <div id="App" class="planned-container">
     <h1>Planeeritud matkad</h1>
     <div id="app">
-    <button @click="store.fetchFutureHikesAndToggle" class="btn green-btn">Planeeritud matkad</button>
+      <button @click="store.fetchFutureHikesAndToggle" class="btn green-btn">Planeeritud matkad</button>
     </div>
     <PlannedHikeList/>
-    <br>
+
+
     <PlannedHikeForm/>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   </div>
 </template>
 
@@ -23,23 +35,25 @@ export default {
 
   setup() {
     const store = useHikeStore();
-    return { store };
+    return {store};
   },
 };
 </script>
 
 <style>
 .planned-container {
-  padding: 20px;
-  text-align: left;
+  width: 100%; /* Full width */
+  max-width: 520px; /* Adjust based on your design */
+  margin: 0 auto;
+  padding: 0px; /* Add padding if needed */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
 .planned-container h1 {
-  font-family: "Lora", serif;
-  font-size: 2.5rem;
-  line-height: 1.2;
-  color: #faebd7;
-  margin-bottom: 20px;
+  font-family: "Fira Code", serif;
+  font-optical-sizing: auto;
+  color: #372003;
 }
 
 .dropdown-menu .form-check {
@@ -55,6 +69,7 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .green-btn:hover {
   background-color: #45a049;
 }

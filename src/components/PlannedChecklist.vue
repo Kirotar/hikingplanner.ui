@@ -7,7 +7,11 @@
     >
       Vali matkavarustus
     </button>
-    <div v-show="showChecklistDropdown" class="dropdown-menu">
+    <div
+        v-if="store.checklistItems.length > 0"
+        :class="{'show': showChecklistDropdown}"
+        class="dropdown-menu"
+    >
       <div
           v-for="item in store.checklistItems"
           :key="item.id"
@@ -29,20 +33,28 @@
 </template>
 
 <script>
-import { ref } from "vue"; // Import ref from Vue
+import { ref, onMounted } from "vue";
 import { useHikeStore } from "@/store/hikeStore";
 
 export default {
   setup() {
     const store = useHikeStore();
-    store.fetchChecklist();
-
-    // Local state for dropdown visibility
     const showChecklistDropdown = ref(false);
+
+    // Fetch checklist on component mount
+    onMounted(async () => {
+      try {
+        await store.fetchChecklist();
+        console.log('Checklist items:', store.checklistItems);
+      } catch (error) {
+        console.error('Failed to fetch checklist:', error);
+      }
+    });
 
     // Toggle the dropdown visibility
     const toggleDropdown = () => {
       showChecklistDropdown.value = !showChecklistDropdown.value;
+      console.log('Dropdown toggled, now:', showChecklistDropdown.value);
     };
 
     return {
@@ -54,8 +66,30 @@ export default {
 };
 </script>
 
-
 <style scoped>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Position right below the button */
+  left: 50%; /* Move to the horizontal center of the button */
+  transform: translateX(-50%); /* Shift back by half its own width */
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  min-width: 200px; /* Optional: ensure a minimum width */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
 .green-btn {
   background-color: #4caf50;
   color: white;
@@ -69,5 +103,4 @@ export default {
 .green-btn:hover {
   background-color: #45a049;
 }
-
 </style>

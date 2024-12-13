@@ -121,7 +121,7 @@ export default {
     // Reactive variables to store results
     const distanceAchieved = ref(0.0); // Initialize with a default value
     const nrOfHikesAchieved = ref(0.0);
-    const api = "http://localhost:8091/api/matk"; // Replace with your actual API base URL
+    const api = "http://localhost:8091/api/matk";
 
     // Fetch distance completed
     const fetchDistanceAchieved = async () => {

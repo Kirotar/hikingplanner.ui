@@ -35,6 +35,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -123,14 +124,6 @@ export default {
   },
 
   methods: {
-    // getCoordinates(event) {
-    //   // Leiab koordinaadid klikitud kohas
-    //   const rect = event.target.getBoundingClientRect();
-    //   this.coordinates = {
-    //     x: Math.round(event.clientX - rect.left),
-    //     y: Math.round(event.clientY - rect.top),
-    //   };
-    // },
     goToUrl(url)
     {
       window.open(url, "_blank");

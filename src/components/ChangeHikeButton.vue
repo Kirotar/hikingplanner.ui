@@ -17,8 +17,9 @@
       <div class="form-group mb-3">
         <input
             v-model="hike.duration"
-            type="time"
+            type="text"
             class="form-control"
+            placeholder="Kaua matk kestis (HH:MM)"
         />
       </div>
       <div class="form-group mb-3">

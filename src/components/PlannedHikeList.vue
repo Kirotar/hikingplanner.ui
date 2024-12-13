@@ -97,6 +97,7 @@ import ChangeHikeButton from "@/components/ChangeHikeButton.vue";
 
 const store = useHikeStore();
 const showPlannedChecklist = ref(false);
+const api = "http://localhost:8091/api/matk";
 
 
 const toggleChecklistItem = async (item) => {
@@ -116,7 +117,7 @@ const toggleChecklistItem = async (item) => {
 
 const deleteChecklistItem = async (itemId, hikeId) => {
   try {
-    await axios.delete(`${this.api}/delete-items/${itemId}`);
+    await axios.delete(`${api}/delete-items/${itemId}`);
     await store.fetchChecklist(hikeId);
   } catch (error) {
     console.error('Viga kustutamisel:', error);
